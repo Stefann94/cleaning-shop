@@ -1,0 +1,91 @@
+/* baie/baie.css */
+
+.category-page {
+    padding-bottom: 5rem;
+    padding-top: calc(var(--nav-height) + 4rem) !important;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 2rem;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--main-blue);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.product-info h3 {
+    font-size: 1.1rem;
+    color: #2f3640;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 1.25rem;
+    color: var(--main-blue);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.add-btn {
+    background: #2f3640;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.add-btn:hover {
+    background: var(--main-blue);
+}
+
+/* Aliniere Mobil */
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .product-card {
+        padding: 10px;
+    }
+    
+    .product-info h3 {
+        font-size: 0.9rem;
+    }
+}
