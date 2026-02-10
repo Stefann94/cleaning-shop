@@ -1,7 +1,5 @@
 /* topbar.css */
 
-/* topbar.css */
-
 .topbar {
     background-color: #ffffff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -21,24 +19,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100%; /* Ocupă toată înălțimea topbar-ului */
+    height: 100%;
+    overflow: hidden; /* Esențial pentru a decupa marquee-ul pe mobil */
 }
 
-/* SEARCH BAR RESPONSIVE */
+/* SEARCH BAR - DESIGN RESPONSIV ȘI AERISIT */
 .top-search {
     display: flex;
     align-items: center;
     background: #f1f4f7;
     border-radius: 50px;
-    padding: 0 1.2rem; 
+    padding: 0 1rem;
     border: 1px solid transparent;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Lățime flexibilă între 200px și 400px */
-    width: clamp(12.5rem, 20vw, 25rem); 
-    
-    /* Înălțime proporțională: ocupă 60% din înălțimea Topbar-ului */
-    height: 60%; 
+    /* Lățime responsivă: între 150px și 350px */
+    width: clamp(150px, 20vw, 350px);
+    height: 60%; /* Ocupă 60% din înălțimea topbar-ului pentru a lăsa spațiu sus/jos */
     flex-shrink: 0;
 }
 
@@ -51,43 +48,36 @@
 .top-search input {
     background: transparent;
     border: none;
-    padding: 0.5rem;
+    padding: 0 0.5rem;
     font-family: 'Montserrat', sans-serif;
     font-size: 0.85rem;
     color: var(--dark-text);
     width: 100%;
-    height: 100%;
     outline: none;
 }
 
 .search-btn {
     background: none;
     border: none;
-    height: 100%;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    cursor: pointer;
 }
 
 .search-btn img {
-    /* Dimensiune iconiță raportată la textul din jur */
-    height: 1.1em; 
+    height: 1rem;
     width: auto;
     opacity: 0.6;
 }
 
-/* ICONIȚE ȘI TEXT */
+/* CONTAINERUL PENTRU ELEMENTE DREAPTA */
 .topbar-items {
     display: flex;
     align-items: center;
     gap: 2rem;
-}
-
-.top-icon {
-    width: 14px;
-    height: 14px;
-    margin-right: 8px;
-    object-fit: contain;
+    height: 100%;
+    flex: 1; /* Permite ocuparea spațiului liber pe mobil pentru marquee */
+    justify-content: flex-end;
 }
 
 .top-item {
@@ -99,23 +89,34 @@
     white-space: nowrap;
 }
 
-/* AUTH CAPSULE */
+.top-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    object-fit: contain;
+}
+
+/* LOGIN / SIGN UP - CAPSULĂ ELEGANTĂ */
 .top-auth {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.8rem;
     background: #f1f4f7;
-    padding: 4px 15px;
+    padding: 0 1.2rem;
     border-radius: 50px;
+    height: 60%; /* Aceeași înălțime ca search bar-ul pentru simetrie */
+    flex-shrink: 0;
 }
 
 .auth-link {
     text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 700;
     color: var(--dark-text);
+    transition: color 0.2s ease;
 }
 
+.auth-link:hover { color: var(--main-blue); }
 .auth-link.signup { color: var(--main-blue); }
 
 .auth-divider {
@@ -128,38 +129,52 @@
 
 @media (max-width: 768px) {
     .topbar {
-        height: 3rem;
+        height: 3.2rem;
     }
 
-    .top-search {
-        width: 150px; /* Search mai mic pe mobil */
-        padding: 2px 10px;
-    }
-
-    .top-search input {
-        font-size: 0.75rem;
-    }
-
-    /* ACTIVARE MARQUEE PENTRU INFO */
-    .topbar-items {
-        gap: 3rem; /* Spațiu între elementele care se succed */
-        animation: marquee 15s linear infinite;
-        padding-left: 2rem;
-    }
-
-    .top-item:nth-child(2) {
-        display: flex; /* Reafișăm locația pe mobil pentru scroll */
-    }
-
-    /* Containerul trebuie să permită glisarea fără să strice layout-ul */
     .topbar-container {
-        justify-content: flex-start;
-        gap: 1rem;
+        width: 95%;
+        gap: 0.5rem;
+    }
+
+    /* Redimensionăm search-ul pe mobil */
+    .top-search {
+        width: 40%;
+        height: 55%; 
+        padding: 0 0.6rem;
+    }
+
+    /* Activăm Marquee doar pe info (fără să treacă peste restul) */
+    .topbar-items {
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        justify-content: center;
+        gap: 3rem;
+    }
+
+    .top-item {
+        animation: marqueeMobile 12s linear infinite;
+        font-size: 0.7rem;
+    }
+
+    /* Login Stilizat ca Butoane de Aplicație */
+    .top-auth {
+        background: rgba(0, 168, 255, 0.08);
+        border: 1px solid rgba(0, 168, 255, 0.15);
+        padding: 0 0.8rem;
+        height: 55%;
+        gap: 0.5rem;
+    }
+
+    .auth-link {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
     }
 }
 
-/* Definim animația de Marquee */
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
+/* Definim animația pentru glisare infinită pe mobil */
+@keyframes marqueeMobile {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-150%); }
 }
