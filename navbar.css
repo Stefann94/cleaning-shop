@@ -106,7 +106,7 @@
 
 /* Media Query - Mobile */
 @media (max-width: 768px) {
-    .nav-container {
+.nav-container {
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         padding: 0 5%;
@@ -123,7 +123,7 @@
         justify-self: center; 
     }
 
-    .nav-links {
+.nav-links {
         position: fixed;
         top: var(--nav-height);
         left: -100%;
@@ -131,10 +131,21 @@
         height: calc(100vh - var(--nav-height));
         flex-direction: column;
         background: var(--bg-white);
-        padding-top: 4rem;
-        gap: 2.5rem;
-        /* Asigurăm consistența animației de glisare */
+        padding-top: 2rem; /* Am scăzut padding-ul ca să nu fie prea jos */
+        gap: 1.5rem; /* Distanță mai mică între butoane pe verticală */
         transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-y: auto; /* Permite scroll în meniu dacă ai multe categorii */
+    }
+
+    /* ALINIERE PERFECTĂ TEXT + ICON PE MOBIL */
+    .nav-links li a {
+        display: flex !important;
+        align-items: center !important; 
+        justify-content: flex-start;
+        padding: 10px 10% !important;
+        width: 100%;
+        font-weight: 500 !important;
+        text-shadow: none !important; /* Fără îngroșare pe mobil */
     }
 
     .nav-links.active { left: 0; }
