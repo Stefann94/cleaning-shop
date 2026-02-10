@@ -1,0 +1,83 @@
+.topbar {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: var(--nav-height); /* Îl poziționăm sub navbar */
+    width: 100%;
+    z-index: 999;
+}
+
+.topbar-container {
+    width: 90%;
+    max-width: 1800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* SEARCH */
+.top-search {
+    display: flex;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 2px 10px;
+}
+
+.top-search input {
+    border: none;
+    padding: 5px;
+    font-size: 0.85rem;
+    outline: none;
+    width: clamp(100px, 15vw, 250px);
+}
+
+.top-search button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* ITEMS DESKTOP */
+.topbar-items {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.85rem;
+    color: var(--dark-text);
+}
+
+.top-auth a {
+    text-decoration: none;
+    color: var(--main-blue);
+    font-weight: 600;
+}
+
+/* RESPONSIVITATE MOBIL (Efect Marquee) */
+@media (max-width: 768px) {
+    .topbar-container {
+        gap: 1rem;
+    }
+
+    .topbar-items {
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden; /* Ascundem ce depășește */
+        width: 100%;
+    }
+
+    /* Animarea elementelor în interior */
+    .topbar-items .top-item, 
+    .topbar-items .top-auth {
+        padding-left: 50%; /* Spațiu între repetiții */
+        animation: marquee 15s linear infinite;
+    }
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-150%); }
+}

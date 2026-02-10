@@ -30,3 +30,16 @@ body {
     color: var(--dark-text);
     line-height: 1.6;
 }
+/* style.css */
+.home-content {
+    /* Am eliminat spațiul extra de la final. Acum conținutul începe fix sub Topbar. */
+    padding-top: calc(var(--nav-height) + 3rem); 
+    padding-bottom: 5rem;
+}
+
+@media (max-width: 768px) {
+    .home-content {
+        /* Pe mobil, unde ecranul e mic, îl lipim la fel de sus */
+        padding-top: calc(var(--nav-height) + 3rem);
+    }
+}

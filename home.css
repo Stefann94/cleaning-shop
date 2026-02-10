@@ -1,7 +1,8 @@
 /* Secțiune Main Content */
 .home-content {
-    margin-top: calc(var(--nav-height) + 2rem);
+  
     padding-bottom: 5rem;
+    padding-top: calc(var(--nav-height) + 3rem) !important;
 }
 
 .wrapper {
@@ -11,9 +12,10 @@
 }
 
 .section-title {
+    margin-top: 1rem; /* Aceasta este distanța de la Topbar la Text. Scade-o la 0 dacă vrei și mai sus. */
     text-align: center;
     font-size: clamp(1.5rem, 3vw, 2.5rem);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     font-weight: 800;
 }
 
