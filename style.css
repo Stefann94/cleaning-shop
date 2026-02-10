@@ -1,0 +1,32 @@
+/* style.css */
+
+/* Import font modern de pe Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    /* Netezire font pentru ecrane Apple/TV */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+*:focus {
+    outline: none;
+}
+
+:root {
+    --main-blue: #00a8ff;
+    --dark-text: #2c3e50; /* Un bleumarin închis e mai elegant decât griul anterior */
+    --bg-white: #ffffff;
+    --nav-height: 4.5rem;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-white);
+    color: var(--dark-text);
+    line-height: 1.6;
+}
