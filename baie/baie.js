@@ -1,3 +1,4 @@
+let isFetching = false;
 async function fetchProducts() {
     const container = document.getElementById('products-container');
     
