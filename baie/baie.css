@@ -2,28 +2,61 @@
 
 .category-page {
     padding-bottom: 5rem;
-    padding-top: calc(var(--nav-height) + 4rem) !important;
+    /* Spațiu generos pentru a nu se suprapune cu Navbar-ul și Topbar-ul fix */
+    padding-top: calc(var(--nav-height) + 7rem) !important;
+    background-color: #fcfcfc;
 }
 
+.wrapper {
+    width: 92%;
+    max-width: 1600px; /* Extins pentru monitoare mari/TV */
+    margin: 0 auto;
+}
+
+/* Titlul stilizat ca pe Home */
+.section-title {
+    text-align: center;
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    margin-bottom: 3rem;
+    font-weight: 850;
+    line-height: 1.2;
+    color: var(--dark-text);
+}
+
+.subtitle-blue {
+    color: var(--main-blue);
+    font-size: 0.75em;
+    font-weight: 600;
+    display: block;
+    margin-top: 0.3rem;
+    letter-spacing: -0.5px;
+}
+
+/* Grid-ul de produse */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
-    margin-top: 2rem;
+    /* Pe desktop: minim 280px, maxim se împarte egal rândul */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
 }
 
+/* Stilul Cardului */
 .product-card {
     background: #fff;
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: 20px;
+    padding: 25px;
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
     position: relative;
-    transition: transform 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.02);
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 168, 255, 0.12);
 }
 
 .product-badge {
@@ -36,26 +69,41 @@
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 700;
+    z-index: 2;
+}
+
+.product-image {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .product-card img {
-    width: 100%;
-    height: 200px;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    margin-bottom: 15px;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.08);
 }
 
 .product-info h3 {
     font-size: 1.1rem;
     color: #2f3640;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    min-height: 2.5rem; /* Menține butoanele aliniate la nume scurte/lungi */
 }
 
 .price {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     color: var(--main-blue);
     font-weight: 800;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .add-btn {
@@ -63,29 +111,58 @@
     color: white;
     border: none;
     width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 600;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
 .add-btn:hover {
     background: var(--main-blue);
+    box-shadow: 0 4px 12px rgba(0, 168, 255, 0.3);
 }
 
-/* Aliniere Mobil */
-@media (max-width: 768px) {
+/* --- RESPONSIVITATE --- */
+
+/* Ecrane foarte mari (TV) */
+@media (min-width: 2000px) {
     .products-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* Telefon */
+@media (max-width: 768px) {
+    .category-page {
+        padding-top: calc(var(--nav-height) + 5rem) !important;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 pe rând pe mobil */
         gap: 15px;
     }
     
     .product-card {
-        padding: 10px;
+        padding: 15px 10px;
     }
     
+    .product-image {
+        height: 140px;
+    }
+
     .product-info h3 {
         font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+
+    .price {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    .add-btn {
+        padding: 10px;
+        font-size: 0.85rem;
     }
 }

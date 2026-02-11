@@ -43,3 +43,100 @@ body {
         padding-top: calc(var(--nav-height) + 3rem);
     }
 }
+
+/* --- WIDGETS FIXE (DREAPTA JOS) --- */
+
+.fixed-widgets {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    z-index: 2000;
+}
+
+/* Capsula Coș */
+.cart-widget {
+    background: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px;
+    border-radius: 50px; /* Forma de capsula */
+    border: 2px solid var(--main-blue); /* Rama albastra */
+    box-shadow: 0 10px 25px rgba(0, 168, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cart-widget img {
+    width: 24px;
+    height: 24px;
+}
+
+.cart-widget span {
+    color: var(--dark-text);
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.cart-widget:hover {
+    transform: scale(1.05);
+    background-color: var(--main-blue);
+}
+
+.cart-widget:hover span {
+    color: white;
+}
+
+/* Buton Go To Top */
+.top-widget {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--dark-text);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    opacity: 0; /* Ascuns implicit */
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.top-widget.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.top-widget img {
+    width: 20px;
+    filter: invert(1); /* Face iconița albă dacă e neagră */
+}
+
+.top-widget:hover {
+    background: var(--main-blue);
+    transform: translateY(-5px);
+}
+
+/* --- ADAPTARE MOBIL --- */
+@media (max-width: 768px) {
+    .fixed-widgets {
+        bottom: 20px;
+        right: 20px;
+        gap: 10px;
+    }
+
+    .cart-widget span {
+        display: none; /* Pe mobil lăsăm doar iconița pentru a nu ocupa ecranul */
+    }
+
+    .cart-widget {
+        padding: 12px;
+    }
+}
