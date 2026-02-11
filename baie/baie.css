@@ -140,37 +140,56 @@
     }
 }
 
-/* Telefon */
-@media (max-width: 768px) {
+/* --- RECTIFICARE SCROLL ORIZONTAL MOBIL --- */
+@media (max-width: 48rem) {
     .category-page {
         padding-top: calc(var(--nav-height) + 5rem) !important;
+        /* Asigură-te că pagina nu permite overflow */
+        overflow-x: hidden; 
     }
 
     .products-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 pe rând pe mobil */
-        gap: 15px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        padding: 0 0.8rem; /* Mărit puțin pentru siguranță */
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .product-card {
-        padding: 15px 10px;
+        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        height: 100%; 
+        min-width: 0; /* FOARTE IMPORTANT: permite conținutului să se micșoreze */
+        box-sizing: border-box;
     }
     
-    .product-image {
-        height: 140px;
-    }
-
     .product-info h3 {
-        font-size: 0.9rem;
-        margin-bottom: 8px;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        
+        /* --- REPARARE TEXT (LINE CLAMP) --- */
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* Schimbă în 2 dacă vrei să permiți maxim două rânduri */
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+        white-space: normal; /* Am eliminat nowrap care strica lățimea */
+        word-break: break-word;
     }
 
     .price {
-        font-size: 1.1rem;
-        margin-bottom: 12px;
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        margin-top: auto; 
     }
 
     .add-btn {
-        padding: 10px;
-        font-size: 0.85rem;
+        padding: 0.8rem 0.2rem;
+        font-size: 0.75rem; /* Puțin mai mic să încapă sigur pe un rând în buton */
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
