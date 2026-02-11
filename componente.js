@@ -152,17 +152,16 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
     `;
 
-    // Inserăm codul la începutul body-ului
-    document.body.insertAdjacentHTML("afterbegin", headerHTML);
+
 
     const widgetsHTML = `
     <div class="fixed-widgets">
         <a href="${pathPrefix}cart.html" class="cart-widget">
-            <img src="${pathPrefix}pictures/cart-icon.png" alt="Cos">
+            <img src="${pathPrefix}pictures/cos.png" alt="Cos">
             <span>Coș de cumpărături</span>
         </a>
         <button id="gotoTop" class="top-widget">
-            <img src="${pathPrefix}pictures/arrow-up.png" alt="Top">
+            <img src="${pathPrefix}pictures/gotop.png" alt="Top">
         </button>
     </div>
     `;

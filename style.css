@@ -22,6 +22,7 @@
     --dark-text: #2c3e50; 
     --bg-white: #ffffff;
     --nav-height: 4.5rem;
+    --widget-offset: 1rem;
 }
 
 body {
@@ -48,12 +49,12 @@ body {
 
 .fixed-widgets {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: var(--widget-offset); 
+    right: var(--widget-offset);
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse; /* Coșul rămâne cel mai de jos */
     align-items: flex-end;
-    gap: 15px;
+    gap: 0.7rem;
     z-index: 2000;
 }
 
@@ -63,80 +64,120 @@ body {
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 20px;
-    border-radius: 50px; /* Forma de capsula */
-    border: 2px solid var(--main-blue); /* Rama albastra */
-    box-shadow: 0 10px 25px rgba(0, 168, 255, 0.2);
+    gap: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 3rem; /* Valoare mare pentru a menține forma de capsulă */
+    border: 0.15rem solid var(--main-blue);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 168, 255, 0.15);
     transition: all 0.3s ease;
 }
 
 .cart-widget img {
-    width: 24px;
-    height: 24px;
+    width: 1.4rem;
+    height: 1.4rem;
+    transition: filter 0.3s ease;
 }
 
 .cart-widget span {
     color: var(--dark-text);
     font-weight: 700;
-    font-size: 0.95rem;
-    white-space: nowrap;
+    font-size: 0.9rem; /* Se va scala automat dacă userul are fontul setat diferit în browser */
 }
 
+/* --- EFECT HOVER ALBASTRU --- */
 .cart-widget:hover {
-    transform: scale(1.05);
-    background-color: var(--main-blue);
+    transform: translateY(-0.2rem);
+    background-color: var(--main-blue); /* Fundalul devine albastru */
+    box-shadow: 0 0.8rem 1.8rem rgba(0, 168, 255, 0.3);
 }
 
 .cart-widget:hover span {
-    color: white;
+    color: #ffffff; /* Textul devine alb la hover */
 }
 
-/* Buton Go To Top */
+.cart-widget:hover img {
+    /* Dacă iconița ta este neagră/colorată, acest filtru o face albă la hover */
+    filter: brightness(0) invert(1);
+}
+
+/* Buton Go To Top - Versiunea Modernizată */
 .top-widget {
-    width: 45px;
-    height: 45px;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
-    background: var(--dark-text);
+    /* Gradient discret pentru un aspect 3D modern */
+    background: linear-gradient(135deg, var(--main-blue), #0084cc);
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    opacity: 0; /* Ascuns implicit */
+    
+    /* Umbră mai fină și mai extinsă */
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 168, 255, 0.3);
+    
+    /* Starea inițială pentru animația de apariție */
+    opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transform: translateY(1rem) scale(0.8);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    z-index: 1999;
 }
 
 .top-widget.visible {
-    opacity: 1;
+    opacity: 0.9;
     visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.top-widget.visible:hover {
+    opacity: 1;
+    /* Schimbăm gradientul la hover */
+    background: linear-gradient(135deg, #0084cc, var(--main-blue));
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.6rem 1.5rem rgba(0, 168, 255, 0.4);
 }
 
 .top-widget img {
-    width: 20px;
-    filter: invert(1); /* Face iconița albă dacă e neagră */
+    width: 1.2rem; /* Puțin mai mic pentru eleganță */
+    height: auto;
+    filter: brightness(0) invert(1);
+    /* Animație pentru săgeată la hover pe buton */
+    transition: transform 0.3s ease;
 }
 
-.top-widget:hover {
-    background: var(--main-blue);
-    transform: translateY(-5px);
+.top-widget:hover img {
+    transform: translateY(-0.15rem); /* Săgeata "sare" puțin în sus */
 }
+/* --- RECTIFICARE POZITIONARE MOBIL --- */
 
-/* --- ADAPTARE MOBIL --- */
-@media (max-width: 768px) {
-    .fixed-widgets {
-        bottom: 20px;
-        right: 20px;
-        gap: 10px;
+@media (max-width: 48rem) { /* Pentru telefoane */
+:root {
+        --widget-offset: 1.2rem; /* Distanța generosă față de margini */
     }
 
+    /* Eliminăm textul "Coș de cumpărături" */
     .cart-widget span {
-        display: none; /* Pe mobil lăsăm doar iconița pentru a nu ocupa ecranul */
+        display: none !important; 
     }
 
     .cart-widget {
-        padding: 12px;
+        /* Transformăm capsula într-un cerc perfect */
+        width: 3.2rem; 
+        height: 3.2rem;
+        padding: 0; 
+        justify-content: center;
+        border-radius: 50%; /* Cerc perfect */
+        
+        /* Resetăm orice lățime minimă care ar putea forța capsula */
+        min-width: 0; 
+    }
+
+    .cart-widget img {
+        /* Centrăm iconița și o facem puțin mai vizibilă */
+        width: 1.6rem;
+        height: 1.6rem;
+        margin: 0;
     }
 }
