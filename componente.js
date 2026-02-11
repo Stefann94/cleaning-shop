@@ -186,14 +186,16 @@ document.addEventListener("DOMContentLoaded", () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Re-atașăm logica de burger menu deoarece elementul a fost creat dinamic
+// Re-atașăm logica de burger menu
     const burger = document.querySelector('#mobile-menu');
     const navLinks = document.querySelector('.nav-links');
 
-    if (burger) {
-        burger.addEventListener('click', () => {
+    if (burger && navLinks) {
+        // Folosim onclick pentru a suprascrie orice altă tentativă de legătură
+        burger.onclick = () => {
             navLinks.classList.toggle('active');
             burger.classList.toggle('is-active');
-        });
+            console.log("Meniu activat!");
+        };
     }
 });
