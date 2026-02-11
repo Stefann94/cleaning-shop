@@ -125,7 +125,7 @@
     background: #cbd5e0;
 }
 
-/* --- REPARAȚII MOD MOBIL --- */
+/* --- REPARAȚII MOD MOBIL (ACTUALIZAT) --- */
 
 @media (max-width: 768px) {
     .topbar {
@@ -134,47 +134,56 @@
 
     .topbar-container {
         width: 95%;
-        gap: 0.5rem;
+        display: flex;
+        justify-content: space-between; /* Împinge Search în stânga și Auth în dreapta */
+        gap: 0;
     }
 
-    /* Redimensionăm search-ul pe mobil */
-    .top-search {
-        width: 40%;
-        height: 55%; 
-        padding: 0 0.6rem;
-    }
-
-    /* Activăm Marquee doar pe info (fără să treacă peste restul) */
-    .topbar-items {
-        overflow: hidden;
-        mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-        justify-content: center;
-        gap: 3rem;
-    }
-
+    /* 1. ELIMINĂM TELEFONUL ȘI LOCAȚIA PE MOBIL */
     .top-item {
-        animation: marqueeMobile 12s linear infinite;
-        font-size: 0.7rem;
+        display: none !important;
     }
 
-    /* Login Stilizat ca Butoane de Aplicație */
-    .top-auth {
-        background: rgba(0, 168, 255, 0.08);
-        border: 1px solid rgba(0, 168, 255, 0.15);
+    /* 2. Redimensionăm search-ul să fie mai stabil */
+    .top-search {
+        width: 50%; /* Ocupă jumătate din ecran */
+        height: 65%; 
         padding: 0 0.8rem;
-        height: 55%;
-        gap: 0.5rem;
+    }
+
+    /* 3. Ajustăm containerul de Auth */
+    .topbar-items {
+        flex: 1;
+        justify-content: flex-end;
+        overflow: visible; /* Nu mai avem nevoie de mask/marquee */
+        mask-image: none; 
+    }
+
+    /* 4. Login Stilizat ca "Pill Button" modern */
+    .top-auth {
+        background: var(--main-blue); /* Fundal albastru plin pe mobil pentru vizibilitate */
+        padding: 0 1rem;
+        height: 65%;
+        gap: 0.6rem;
+        box-shadow: 0 2px 8px rgba(0, 168, 255, 0.2);
     }
 
     .auth-link {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
+        color: white !important; /* Text alb pe fundal albastru */
         text-transform: uppercase;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.5px;
+    }
+
+    .auth-link.signup {
+        color: white !important;
+        font-weight: 800; /* Signup puțin mai evidențiat */
+    }
+
+    .auth-divider {
+        background: rgba(255, 255, 255, 0.4); /* Divider mai discret pe alb */
+        height: 10px;
     }
 }
 
-/* Definim animația pentru glisare infinită pe mobil */
-@keyframes marqueeMobile {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-150%); }
-}
+/* Putem șterge @keyframes marqueeMobile dacă nu îl mai folosim nicăieri altundeva */
