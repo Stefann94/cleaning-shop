@@ -143,9 +143,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span>Locație: București</span>
                 </div>
                 <div class="top-auth">
-                    <a href="#" class="auth-link login">Log In</a>
+                    <a href="/login/login.html" class="auth-link login">Log In</a>
                     <span class="auth-divider"></span>
-                    <a href="#" class="auth-link signup">Sign Up</a>
+                    <a href="/login/login.html" class="auth-link signup">Sign Up</a>
                 </div>
             </div>
         </div>

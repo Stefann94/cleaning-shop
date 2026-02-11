@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autentificare - Cleaning Shop</title>
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/topbar.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+
+<main class="auth-page">
+    <div class="auth-card">
+        <div class="auth-tabs">
+            <button id="tab-login" class="active">Log In</button>
+            <button id="tab-signup">Sign Up</button>
+        </div>
+
+        <div class="auth-content">
+            <form id="login-form" class="auth-form">
+                <h2>Bine ai revenit!</h2>
+                <div class="input-group">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="login-password" placeholder="Parolă" required>
+                </div>
+                <button type="submit" class="auth-btn">Intră în cont</button>
+            </form>
+
+            <form id="signup-form" class="auth-form hidden">
+                <h2>Creează cont</h2>
+                <div class="input-group">
+                    <input type="text" id="signup-name" placeholder="Nume complet" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signup-password" placeholder="Parolă (minim 6 caractere)" required>
+                </div>
+                <button type="submit" class="auth-btn">Înregistrare</button>
+            </form>
+        </div>
+        <div id="auth-status"></div>
+    </div>
+</main>
+
+<script type="module" src="/componente.js"></script>
+<script type="module" src="/supabase-config.js"></script>
+<script type="module" src="./login.js"></script>
+
+</body>
+</html>

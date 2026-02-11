@@ -1,0 +1,98 @@
+.auth-page {
+    min-height: calc(100vh - 120px); /* Ajustat pentru navbar + topbar */
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f7f6;
+    padding: 20px;
+}
+
+.auth-card {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid #eee;
+}
+
+.auth-tabs button {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    background: #f8f9fa;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    color: #666;
+}
+
+.auth-tabs button.active {
+    background: white;
+    color: #00a8ff;
+    border-bottom: 3px solid #00a8ff;
+}
+
+.auth-content {
+    padding: 30px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form.hidden {
+    display: none;
+}
+
+.auth-form h2 {
+    margin-bottom: 10px;
+    color: #2f3640;
+    font-size: 1.5rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #00a8ff;
+}
+
+.auth-btn {
+    background-color: #00a8ff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.auth-btn:hover {
+    background-color: #0086cc;
+    transform: translateY(-2px);
+}
+
+#auth-status {
+    padding: 0 30px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #e74c3c;
+}
