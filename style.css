@@ -326,3 +326,34 @@ body {
     .cos-popup { width: 300px; right: -10px; }
     .cos-widget span { display: none; }
 }
+
+/* Containerul care ține lista de produse */
+.cos-popup-produse {
+    flex: 1;
+    /* Limităm înălțimea pentru a forța scroll-ul */
+    max-height: 300px; 
+    overflow-y: auto;
+    padding: 1rem;
+    /* Smooth scrolling pentru experiență plăcută pe mobil */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* --- STILIZARE SCROLLBAR (Opțional, pentru aspect modern) --- */
+.cos-popup-produse::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cos-popup-produse::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.cos-popup-produse::-webkit-scrollbar-thumb {
+    background: #cbd5e0; /* O culoare gri discretă */
+    border-radius: 10px;
+}
+
+.cos-popup-produse::-webkit-scrollbar-thumb:hover {
+    background: #00a8ff; /* Se face albastru când treci cu mouse-ul */
+}

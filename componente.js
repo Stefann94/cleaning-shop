@@ -370,7 +370,7 @@ window.renderCart = () => {
                         <small>${item.cantitate} x ${item.pret} RON</small>
                     </div>
                 </div>
-                <button onclick="window.removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
+                <button onclick="window.removeFromCart(event, ${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold; padding: 5px;">X</button>
             </div>
         `;
     }).join('');
@@ -381,9 +381,11 @@ window.renderCart = () => {
 
 // 4. Funcție de eliminare
 window.removeFromCart = (index) => {
+    if (event) event.stopPropagation();
     const cart = window.getCart();
     cart.splice(index, 1);
     window.saveCart(cart);
+    document.getElementById('cos-popup').classList.add('active');
 };
 
 // 5. Evenimente de deschidere/închidere (trebuie puse după ce HTML-ul e injectat)
