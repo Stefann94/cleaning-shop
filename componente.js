@@ -200,3 +200,75 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 });
+
+// --- LOGICA SEARCH OPTIMIZATĂ ---
+const startSearchLogic = () => {
+    const searchInput = document.querySelector('#global-search');
+    const resultsContainer = document.querySelector('#search-results');
+
+    if (!searchInput || !resultsContainer) {
+        setTimeout(startSearchLogic, 100);
+        return;
+    }
+
+    // Identificăm prefixul pentru a funcționa și în subfoldere
+    const isSubpage = window.location.pathname.includes('/') && 
+                      !window.location.pathname.endsWith('index.html') && 
+                      window.location.pathname.split('/').length > 2;
+    const pathPrefix = isSubpage ? "../" : "";
+
+    let debounceTimer;
+
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.trim();
+
+        // Curățăm timer-ul anterior (Debounce)
+        clearTimeout(debounceTimer);
+
+        if (term.length < 2) {
+            resultsContainer.classList.remove('active');
+            return;
+        }
+
+        // Pornim căutarea doar după ce utilizatorul s-a oprit din scris (300ms)
+        debounceTimer = setTimeout(async () => {
+            if (!window.supaClient) return;
+
+            const { data, error } = await window.supaClient
+                .from('produse')
+                .select('nume, imagine, categorie')
+                .ilike('nume', `%${term}%`)
+                .limit(5);
+
+            if (error) {
+                console.error("Eroare search:", error);
+                return;
+            }
+
+            if (data.length > 0) {
+                resultsContainer.innerHTML = data.map(p => `
+                    <a href="${pathPrefix}${p.categorie}/${p.categorie}.html" class="search-item">
+                        <img src="${pathPrefix}pictures/${p.imagine}" alt="${p.nume}">
+                        <div class="search-item-info">
+                            <h4>${p.nume}</h4>
+                            <span>${p.categorie}</span>
+                        </div>
+                    </a>
+                `).join('');
+            } else {
+                resultsContainer.innerHTML = '<div class="search-item">Niciun produs găsit</div>';
+            }
+            resultsContainer.classList.add('active');
+        }, 300);
+    });
+
+    // Închide search-ul dacă dai click în afara lui
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+            resultsContainer.classList.remove('active');
+        }
+    });
+};
+
+// Pornim logica de search
+startSearchLogic();

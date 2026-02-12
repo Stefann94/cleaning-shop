@@ -20,7 +20,7 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    overflow: hidden; /* Esențial pentru a decupa marquee-ul pe mobil */
+    overflow: visible !important;
 }
 
 /* SEARCH BAR - DESIGN RESPONSIV ȘI AERISIT */
