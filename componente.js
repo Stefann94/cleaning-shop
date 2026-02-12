@@ -143,11 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img src="${pathPrefix}pictures/pin-icon.png" class="top-icon" alt="">
                     <span>Locație: București</span>
                 </div>
-                <div class="top-auth">
-                    <a href="/login/login.html" class="auth-link login">Log In</a>
-                    <span class="auth-divider"></span>
-                    <a href="/login/login.html" class="auth-link signup">Sign Up</a>
-                </div>
+<div class="top-auth">
+    </div>
             </div>
         </div>
     </div>
@@ -276,3 +273,48 @@ const startSearchLogic = () => {
 
 // Pornim logica
 startSearchLogic();
+
+// --- LOGICA PENTRU AFIȘARE NUME UTILIZATOR / LOGIN ---
+const initAuthObserver = () => {
+    // Verificăm dacă Supabase este disponibil
+    if (!window.supaClient) {
+        setTimeout(initAuthObserver, 100);
+        return;
+    }
+
+    // Această funcție detectează automat starea de login
+    window.supaClient.auth.onAuthStateChange((event, session) => {
+        const authContainer = document.querySelector('.top-auth');
+        if (!authContainer) return;
+
+        if (session) {
+            // DACĂ ESTE LOGAT:
+            const user = session.user;
+            // Luăm numele din metadate (setat la Sign Up) sau prima parte din email
+            const userName = user.user_metadata.full_name || user.email.split('@')[0];
+
+            authContainer.innerHTML = `
+                <span class="user-welcome">Salut, <strong>${userName}</strong></span>
+                <span class="auth-divider"></span>
+                <a href="#" id="logout-link" class="auth-link">Log Out</a>
+            `;
+
+            // Adăugăm logica de Log Out
+            document.getElementById('logout-link').onclick = async (e) => {
+                e.preventDefault();
+                await window.supaClient.auth.signOut();
+                window.location.reload(); // Refresh pentru a reveni la butoanele de Login
+            };
+        } else {
+            // DACĂ NU ESTE LOGAT:
+            authContainer.innerHTML = `
+                <a href="/login/login.html" class="auth-link login">Log In</a>
+                <span class="auth-divider"></span>
+                <a href="/login/login.html" class="auth-link signup">Sign Up</a>
+            `;
+        }
+    });
+};
+
+// Apelează funcția imediat după ce s-a încărcat DOM-ul
+initAuthObserver();

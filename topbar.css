@@ -240,3 +240,26 @@
     font-size: 0.75rem;
     color: var(--main-blue);
 }
+
+/* Stil pentru salutul utilizatorului */
+.user-welcome {
+    font-size: 0.8rem;
+    color: var(--dark-text);
+}
+
+.user-welcome strong {
+    color: var(--main-blue); /* Numele va fi albastru */
+    font-weight: 700;
+}
+
+/* Ajustare pentru mobil ca să nu se înghesuie textul */
+@media (max-width: 768px) {
+    .user-welcome {
+        color: white; /* Pe fundalul albastru de mobil, textul să fie alb */
+        font-size: 0.7rem;
+    }
+    .user-welcome strong {
+        color: white;
+        text-decoration: underline;
+    }
+}
