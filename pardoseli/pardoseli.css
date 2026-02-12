@@ -144,6 +144,7 @@
     .product-info h3 {
         font-size: 0.85rem;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;

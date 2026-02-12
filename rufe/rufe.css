@@ -126,7 +126,7 @@
     .category-page { padding-top: calc(var(--nav-height) + 5rem) !important; }
     .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; padding: 0 0.8rem; }
     .product-card { padding: 0.8rem; min-width: 0; }
-    .product-info h3 { font-size: 0.85rem; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.2rem; }
+    .product-info h3 { font-size: 0.85rem; -webkit-line-clamp: 2; line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.2rem; }
     .price { font-size: 1rem; margin-top: auto; }
     .add-btn { font-size: 0.75rem; padding: 0.8rem 0.2rem; }
     .product-image { height: 140px; }
