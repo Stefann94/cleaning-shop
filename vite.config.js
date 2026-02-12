@@ -14,6 +14,7 @@ export default defineConfig({
         rufe: resolve(__dirname, 'rufe/rufe.html'),
         igiena: resolve(__dirname, 'igiena/igiena.html'),
         accesorii: resolve(__dirname, 'accesorii/accesorii.html'),
+        contact: resolve(__dirname, 'contact/contact.html') 
         
         
       },

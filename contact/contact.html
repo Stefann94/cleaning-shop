@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Cleaning Shop</title>
+    <link rel="stylesheet" href="../navbar.css">
+    <link rel="stylesheet" href="../topbar.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+
+<main class="contact-page">
+    <div class="wrapper">
+        <aside class="contact-sidebar">
+            <div class="mini-card">
+                <h3>Informații Utile</h3>
+                <div class="sidebar-item">
+                    <img src="../pictures/phone-icon.png" alt="">
+                    <span>07xx xxx xxx</span>
+                </div>
+                <div class="sidebar-item">
+                    <img src="../pictures/pin-icon.png" alt="">
+                    <span>București, Sector 1</span>
+                </div>
+            </div>
+
+            <div class="mini-card">
+                <h3>Program Lucru</h3>
+                <p>Luni - Vineri: 09:00 - 18:00</p>
+                <p>Sâmbătă: 10:00 - 14:00</p>
+            </div>
+        </aside>
+
+        <section class="main-contact-content">
+            <div class="title-container">
+                <h1 class="section-title">Contactează-ne</h1>
+                <span class="subtitle-blue">Echipa CleanShop</span>
+            </div>
+
+            <form class="contact-form">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Nume</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Mesaj</label>
+                        <textarea rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn full-width">Trimite Mesajul</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+
+<script type="module" src="../componente.js"></script>
+<script type="module" src="../supabase-config.js"></script>
+<script type="module" src="contact.js"></script>
+
+</body>
+</html>

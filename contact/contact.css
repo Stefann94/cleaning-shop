@@ -1,0 +1,173 @@
+/* contact/contact.css */
+
+:root {
+    --brand-blue: #00a8ff;
+    --dark-midnight: #102a43; /* Albastru închis pentru titluri */
+    --text-gray: #486581;
+    --input-bg: #f5f7fa;
+}
+
+.contact-page {
+    padding-bottom: 5rem;
+    padding-top: calc(var(--nav-height) + 5rem) !important;
+    background-color: #ffffff;
+    color: var(--dark-midnight);
+    font-family: 'Inter', sans-serif;
+}
+
+.wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 6rem;
+}
+
+/* --- SIDEBAR MINIMALIST --- */
+.contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.mini-card h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--brand-blue); /* Text albastru */
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.sidebar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.sidebar-item span {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--dark-midnight);
+}
+
+.sidebar-item label {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+}
+
+/* --- CONȚINUT PRINCIPAL --- */
+.main-contact-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-container {
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--dark-midnight); /* Albastru închis, nu negru */
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+}
+
+.subtitle-blue {
+    color: var(--brand-blue);
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+/* --- FORMULAR CLEAN --- */
+.contact-form {
+    max-width: 700px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--dark-midnight);
+    font-size: 0.9rem;
+}
+
+.input-group input, 
+.input-group textarea {
+    width: 100%;
+    padding: 1rem 0; /* Doar padding vertical pentru aspect de linie */
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #e2e8f0;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    border-radius: 0;
+}
+
+.input-group input:focus, 
+.input-group textarea:focus {
+    outline: none;
+    border-bottom-color: var(--brand-blue);
+}
+
+.submit-btn {
+    margin-top: 2rem;
+    background: var(--dark-midnight);
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 50px; /* Buton tip pastilă */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: fit-content; /* Nu mai este full width, e mai elegant așa */
+}
+
+.submit-btn:hover {
+    background: var(--brand-blue);
+}
+
+/* --- RESPONSIVITATE TELEFON (Corecția de scroll) --- */
+@media (max-width: 768px) {
+    .wrapper {
+        grid-template-columns: 1fr; /* O singură coloană verticală */
+        gap: 3rem;
+        width: 88%; /* Puțin mai mult spațiu pe margini */
+    }
+
+    .contact-sidebar {
+        order: 2; /* Informațiile trec sub formular pe mobil */
+        text-align: left;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr; /* Campurile unul sub altul pe mobil */
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        text-align: left;
+    }
+
+    .submit-btn {
+        width: 100%; /* Buton mare pe tot ecranul telefonului */
+        padding: 1.2rem;
+    }
+}
