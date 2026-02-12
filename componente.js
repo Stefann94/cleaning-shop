@@ -171,7 +171,7 @@ const widgetsHTML = `
                 <span>Total:</span>
                 <span id="cos-total-suma">0.00 RON</span>
             </div>
-            <button class="finalizeaza-btn">Finalizează Comanda</button>
+            <button onclick="window.location.href='${pathPrefix}checkout.html'" class="finalizeaza-btn">Finalizează Comanda</button>
         </div>
     </div>
 
@@ -456,5 +456,38 @@ document.addEventListener('click', async (e) => {
             buton.innerText = textOriginal;
             buton.style.background = "";
         }, 1500);
+    }
+});
+
+
+
+
+checkoutForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const cos = window.getCart();
+    const total = cos.reduce((acc, item) => acc + (item.pret * item.cantitate), 0);
+
+    const dateComanda = {
+        client_nume: document.getElementById('nume').value,
+        client_email: document.getElementById('email').value,
+        client_telefon: document.getElementById('telefon').value,
+        client_adresa: document.getElementById('adresa').value,
+        produse: cos,
+        total_plata: total
+    };
+
+    // 1. Salvare în Supabase
+    const { data, error } = await window.supaClient
+        .from('comenzi')
+        .insert([dateComanda]);
+
+    if (error) {
+        alert("Eroare la salvarea comenzii!");
+    } else {
+        // 2. Trimitere Email (Varianta simplă cu EmailJS sau Edge Functions)
+        alert("Comandă plasată cu succes!");
+        localStorage.removeItem('cart');
+        window.location.href = 'index.html';
     }
 });
