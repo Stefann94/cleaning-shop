@@ -181,3 +181,11 @@ body {
         margin: 0;
     }
 }
+
+
+.highlight-product {
+    outline: 3px solid var(--main-blue);
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 168, 255, 0.3);
+    transition: all 0.3s ease;
+}

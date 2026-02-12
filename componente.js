@@ -211,7 +211,7 @@ const startSearchLogic = () => {
         return;
     }
 
-    // Identificăm prefixul pentru a funcționa și în subfoldere
+    // Identificăm prefixul pentru a funcționa corect indiferent de folder
     const isSubpage = window.location.pathname.includes('/') && 
                       !window.location.pathname.endsWith('index.html') && 
                       window.location.pathname.split('/').length > 2;
@@ -222,32 +222,35 @@ const startSearchLogic = () => {
     searchInput.addEventListener('input', (e) => {
         const term = e.target.value.trim();
 
-        // Curățăm timer-ul anterior (Debounce)
         clearTimeout(debounceTimer);
 
         if (term.length < 2) {
             resultsContainer.classList.remove('active');
+            resultsContainer.innerHTML = '';
             return;
         }
 
-        // Pornim căutarea doar după ce utilizatorul s-a oprit din scris (300ms)
         debounceTimer = setTimeout(async () => {
-            if (!window.supaClient) return;
+            if (!window.supaClient) {
+                console.error("Supabase client nu a fost găsit!");
+                return;
+            }
 
+            // IMPORTANT: Am adăugat 'id' în select pentru a funcționa scroll-ul
             const { data, error } = await window.supaClient
                 .from('produse')
-                .select('nume, imagine, categorie')
+                .select('id, nume, imagine, categorie')
                 .ilike('nume', `%${term}%`)
                 .limit(5);
 
             if (error) {
-                console.error("Eroare search:", error);
+                console.error("Eroare la căutare:", error);
                 return;
             }
 
-            if (data.length > 0) {
+            if (data && data.length > 0) {
                 resultsContainer.innerHTML = data.map(p => `
-                    <a href="${pathPrefix}${p.categorie}/${p.categorie}.html" class="search-item">
+                    <a href="${pathPrefix}${p.categorie}/${p.categorie}.html?id=${p.id}#produs-${p.id}" class="search-item">
                         <img src="${pathPrefix}pictures/${p.imagine}" alt="${p.nume}">
                         <div class="search-item-info">
                             <h4>${p.nume}</h4>
@@ -258,11 +261,12 @@ const startSearchLogic = () => {
             } else {
                 resultsContainer.innerHTML = '<div class="search-item">Niciun produs găsit</div>';
             }
+            
             resultsContainer.classList.add('active');
         }, 300);
     });
 
-    // Închide search-ul dacă dai click în afara lui
+    // Închide search-ul dacă dai click în afara lui sau pe un rezultat
     document.addEventListener('click', (e) => {
         if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
             resultsContainer.classList.remove('active');
@@ -270,5 +274,5 @@ const startSearchLogic = () => {
     });
 };
 
-// Pornim logica de search
+// Pornim logica
 startSearchLogic();
