@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="topbar-items">
                 <div class="top-item">
                     <img src="${pathPrefix}pictures/phone-icon.png" class="top-icon" alt="">
-                    <span>07xx xxx xxx</span>
+                    <span>Comenzi telefonice la 07xx xxx xxx</span>
                 </div>
                 <div class="top-item">
                     <img src="${pathPrefix}pictures/pin-icon.png" class="top-icon" alt="">
@@ -289,11 +289,10 @@ const initAuthObserver = () => {
             const user = session.user;
             const userName = user.user_metadata.full_name || user.email.split('@')[0];
 
-            // Curățăm clasa de "bulină" dacă există și punem conținutul
             authContainer.innerHTML = `
                 <div class="user-logged-wrapper">
                     <span class="user-welcome">Salut, <strong>${userName}</strong></span>
-                    <a href="#" id="logout-link" class="logout-minimal">Ieșire</a>
+                    <button id="logout-link" class="logout-btn">Ieșire</button>
                 </div>
             `;
 
