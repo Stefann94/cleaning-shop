@@ -1,3 +1,6 @@
+// ATENȚIE: În baie.js pune 'baie', în bucatarie.js pune 'bucatarie', etc.
+const CATEGORIE_CURENTA = 'baie'; 
+
 let isFetching = false;
 
 async function fetchProducts() {
@@ -5,17 +8,32 @@ async function fetchProducts() {
     isFetching = true;
 
     const container = document.getElementById('products-container');
+    const subtitle = document.querySelector('.subtitle-blue');
     
     if (!window.supaClient) {
-        console.error('supaClient nu este definit. Verifică supabase-config.js');
+        console.error('supaClient nu este definit.');
         isFetching = false;
         return;
     }
 
-    const { data: produse, error } = await window.supaClient
+    // 1. Extragem subcategoria din URL (?sub=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const subcategorieURL = urlParams.get('sub');
+
+    // 2. Construim query-ul de bază pentru categoria paginii
+    let query = window.supaClient
         .from('produse')
         .select('*')
-        .eq('categorie', 'baie'); 
+        .eq('categorie', CATEGORIE_CURENTA);
+
+    // 3. Dacă avem subcategorie în URL, filtrăm și după ea
+    if (subcategorieURL) {
+        query = query.eq('subcategorie', subcategorieURL);
+        // Actualizăm subtitlul paginii ca să știe userul ce vede
+        if (subtitle) subtitle.innerText = subcategorieURL;
+    }
+
+    const { data: produse, error } = await query;
 
     if (error) {
         console.error('Eroare la preluare:', error);
@@ -26,16 +44,15 @@ async function fetchProducts() {
 
     container.innerHTML = ''; 
 
-    if (produse.length === 0) {
-        container.innerHTML = '<p>Nu s-au găsit produse în această categorie.</p>';
+    if (!produse || produse.length === 0) {
+        container.innerHTML = '<p>Nu s-au găsit produse în această selecție.</p>';
         isFetching = false;
         return;
     }
 
     produse.forEach(p => {
-        // Am adăugat id="produs-${p.id}" pentru a putea face scroll la el
         const card = `
-            <div class="product-card" id="produs-${p.id}" data-category="${p.subcategorie || ''}">
+            <div class="product-card" id="produs-${p.id}">
                 ${p.este_nou ? '<div class="product-badge">Nou</div>' : ''}
                 <div class="product-image">
                     <img src="${p.imagine}" alt="${p.nume}">
@@ -51,10 +68,10 @@ async function fetchProducts() {
     });
 
     isFetching = false;
-
-    // --- LOGICA PENTRU REDIRECȚIONARE DIN SEARCH ---
     handleSearchNavigation();
 }
+
+
 
 /**
  * Verifică dacă există un ID de produs în URL și face scroll la el

@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <ul class="dropdown">
                     <div class="dropdown-content">
                         <div class="dropdown-links">
-                            <li><a href="#">Detergenți WC</a></li>
-                            <li><a href="#">Anticalcar</a></li>
-                            <li><a href="#">Odorizante</a></li>
+                            <li><a href="${pathPrefix}baie/baie.html?sub=Detergenți WC">Detergenți WC</a></li>
+                            <li><a href="${pathPrefix}baie/baie.html?sub=Anticalcar">Anticalcar</a></li>
+                            <li><a href="${pathPrefix}baie/baie.html?sub=Odorizante">Odorizante</a></li>
                         </div>
                         <div class="dropdown-image">
                             <img src="${pathPrefix}pictures/prezentarebaie.png" alt="Baie">
@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <ul class="dropdown">
                     <div class="dropdown-content">
                         <div class="dropdown-links">
-                            <li><a href="#">Degresanți</a></li>
-                            <li><a href="#">Detergenți Vase</a></li>
-                            <li><a href="#">Curățare Cuptor</a></li>
+                            <li><a href="${pathPrefix}bucatarie/bucatarie.html?sub=Degresanți">Degresanți</a></li>
+                            <li><a href="${pathPrefix}bucatarie/bucatarie.html?sub=Detergenți Vase">Detergenți Vase</a></li>
+                            <li><a href="${pathPrefix}bucatarie/bucatarie.html?sub=Curățare Cuptor">Curățare Cuptor</a></li>
                         </div>
                         <div class="dropdown-image">
                             <img src="${pathPrefix}pictures/prezentarebucatarie.png" alt="Bucătărie">
@@ -60,9 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <ul class="dropdown">
                     <div class="dropdown-content">
                         <div class="dropdown-links">
-                            <li><a href="#">Detergent Parchet</a></li>
-                            <li><a href="#">Soluții Gresie</a></li>
-                            <li><a href="#">Mopuri & Găleți</a></li>
+                            <li><a href="${pathPrefix}pardoseli/pardoseli.html?sub=Detergent Parchet">Detergent Parchet</a></li>
+                            <li><a href="${pathPrefix}pardoseli/pardoseli.html?sub=Soluții Gresie">Soluții Gresie</a></li>
+                            <li><a href="${pathPrefix}pardoseli/pardoseli.html?sub=Mopuri %26 Găleți">Mopuri & Găleți</a></li>
                         </div>
                         <div class="dropdown-image">
                             <img src="${pathPrefix}pictures/prezentarepardoseli.png" alt="Pardoseli">
@@ -76,9 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <ul class="dropdown">
                     <div class="dropdown-content">
                         <div class="dropdown-links">
-                            <li><a href="#">Detergent Lichid</a></li>
-                            <li><a href="#">Balsam Rufe</a></li>
-                            <li><a href="#">Îndepărtare Pete</a></li>
+                            <li><a href="${pathPrefix}rufe/rufe.html?sub=Detergent Lichid">Detergent Lichid</a></li>
+                            <li><a href="${pathPrefix}rufe/rufe.html?sub=Balsam Rufe">Balsam Rufe</a></li>
+                            <li><a href="${pathPrefix}rufe/rufe.html?sub=Îndepărtare Pete">Îndepărtare Pete</a></li>
                         </div>
                         <div class="dropdown-image">
                             <img src="${pathPrefix}pictures/prezentarerufe.png" alt="Rufe">
@@ -92,9 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <ul class="dropdown">
                     <div class="dropdown-content">
                         <div class="dropdown-links">
-                            <li><a href="#">Săpun Lichid</a></li>
-                            <li><a href="#">Dezinfectanți Mâini</a></li>
-                            <li><a href="#">Gel de Duș</a></li>
+                            <li><a href="${pathPrefix}igiena/igiena.html?sub=Săpun Lichid">Săpun Lichid</a></li>
+                            <li><a href="${pathPrefix}igiena/igiena.html?sub=Dezinfectanți Mâini">Dezinfectanți Mâini</a></li>
+                            <li><a href="${pathPrefix}igiena/igiena.html?sub=Gel de Duș">Gel de Duș</a></li>
                         </div>
                         <div class="dropdown-image">
                             <img src="${pathPrefix}pictures/prezentareigiena.png" alt="Igienă">
@@ -108,9 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <ul class="dropdown">
                     <div class="dropdown-content">
                         <div class="dropdown-links">
-                            <li><a href="#">Lavete & Bureți</a></li>
-                            <li><a href="#">Mănuși Protecție</a></li>
-                            <li><a href="#">Perii Curățenie</a></li>
+                            <li><a href="${pathPrefix}accesorii/accesorii.html?sub=Lavete %26 Bureți">Lavete & Bureți</a></li>
+                            <li><a href="${pathPrefix}accesorii/accesorii.html?sub=Mănuși Protecție">Mănuși Protecție</a></li>
+                            <li><a href="${pathPrefix}accesorii/accesorii.html?sub=Perii Curățenie">Perii Curățenie</a></li>
                         </div>
                         <div class="dropdown-image">
                             <img src="${pathPrefix}pictures/prezentareaccesorii.png" alt="Accesorii">

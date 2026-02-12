@@ -13,7 +13,7 @@ export default defineConfig({
         pardoseli: resolve(__dirname, 'pardoseli/pardoseli.html'),
         rufe: resolve(__dirname, 'rufe/rufe.html'),
         igiena: resolve(__dirname, 'igiena/igiena.html'),
-        access: resolve(__dirname, 'access/access.html'),
+        accesorii: resolve(__dirname, 'accesorii/accesorii.html'),
         
         
       },
