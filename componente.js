@@ -152,17 +152,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    const widgetsHTML = `
-    <div class="fixed-widgets">
-        <a href="${pathPrefix}cart.html" class="cart-widget">
-            <img src="${pathPrefix}pictures/cos.png" alt="Cos">
-            <span>Coș de cumpărături</span>
-        </a>
-        <button id="gotoTop" class="top-widget">
-            <img src="${pathPrefix}pictures/gotop.png" alt="Top">
-        </button>
+const widgetsHTML = `
+<div class="fixed-widgets">
+    <div class="cos-widget" id="deschide-cos">
+        <img src="${pathPrefix}pictures/cos.png" alt="Cos">
+        <span id="cart-count-text">Coș (0)</span>
     </div>
-    `;
+
+    <div id="cos-popup" class="cos-popup">
+        <div class="cos-popup-header">
+            <h3>Coșul tău</h3>
+            <button id="inchide-cos">&times;</button>
+        </div>
+        <div id="cos-produse-lista" class="cos-popup-produse">
+            </div>
+        <div class="cos-popup-footer">
+            <div class="cos-total-row">
+                <span>Total:</span>
+                <span id="cos-total-suma">0.00 RON</span>
+            </div>
+            <button class="finalizeaza-btn">Finalizează Comanda</button>
+        </div>
+    </div>
+
+    <button id="gotoTop" class="top-widget">
+        <img src="${pathPrefix}pictures/gotop.png" alt="Top">
+    </button>
+</div>
+`;
 
     // Inserăm Navbar/Topbar
     document.body.insertAdjacentHTML("afterbegin", headerHTML);
@@ -312,3 +329,130 @@ const initAuthObserver = () => {
 };
 
 initAuthObserver();
+
+
+// --- LOGICA GLOBALĂ PENTRU COȘ ---
+
+// 1. Funcție pentru a lua produsele din LocalStorage
+window.getCart = () => JSON.parse(localStorage.getItem('cart')) || [];
+
+// 2. Funcție pentru a salva produsele
+window.saveCart = (cart) => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.renderCart(); // Actualizăm vizual popup-ul peste tot
+};
+
+// 3. Funcția de randare vizuală a popup-ului
+window.renderCart = () => {
+    const cart = window.getCart();
+    const listaProduse = document.getElementById('cos-produse-lista');
+    const totalSuma = document.getElementById('cos-total-suma');
+    const cartCountText = document.getElementById('cart-count-text');
+
+    if (!listaProduse) return;
+
+    if (cart.length === 0) {
+        listaProduse.innerHTML = '<p style="text-align:center; padding:1rem;">Coșul este gol.</p>';
+        totalSuma.innerText = '0.00 RON';
+        cartCountText.innerText = 'Coș (0)';
+        return;
+    }
+
+    let total = 0;
+    listaProduse.innerHTML = cart.map((item, index) => {
+        total += item.pret * item.cantitate;
+        return `
+            <div class="search-item" style="justify-content: space-between;">
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <img src="${item.imagine}" style="width:40px; height:40px; border-radius:5px;">
+                    <div>
+                        <h4 style="font-size:0.8rem; margin:0;">${item.nume}</h4>
+                        <small>${item.cantitate} x ${item.pret} RON</small>
+                    </div>
+                </div>
+                <button onclick="window.removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
+            </div>
+        `;
+    }).join('');
+
+    totalSuma.innerText = `${total.toFixed(2)} RON`;
+    cartCountText.innerText = `Coș (${cart.reduce((acc, item) => acc + item.cantitate, 0)})`;
+};
+
+// 4. Funcție de eliminare
+window.removeFromCart = (index) => {
+    const cart = window.getCart();
+    cart.splice(index, 1);
+    window.saveCart(cart);
+};
+
+// 5. Evenimente de deschidere/închidere (trebuie puse după ce HTML-ul e injectat)
+document.addEventListener('click', (e) => {
+    const popup = document.getElementById('cos-popup');
+    const btnDeschide = document.getElementById('deschide-cos');
+    const btnInchide = document.getElementById('inchide-cos');
+
+    if (btnDeschide && btnDeschide.contains(e.target)) {
+        popup.classList.toggle('active');
+        window.renderCart();
+    } else if (btnInchide && btnInchide.contains(e.target)) {
+        popup.classList.remove('active');
+    } else if (popup && !popup.contains(e.target) && !btnDeschide.contains(e.target)) {
+        popup.classList.remove('active');
+    }
+});
+
+// Inițializare la load
+setTimeout(window.renderCart, 500);
+
+// --- LOGICA GLOBALĂ: ASCULTĂTOR PENTRU ORICE BUTON "ADĂUGĂ ÎN COȘ" ---
+document.addEventListener('click', async (e) => {
+    // Verificăm dacă elementul apăsat este un buton de adăugare
+    if (e.target.classList.contains('add-btn')) {
+        const buton = e.target;
+        // Căutăm cel mai apropiat card de produs pentru a-i lua datele
+        const card = buton.closest('.product-card');
+        
+        if (!card) return;
+
+        // Extragem ID-ul din string-ul "produs-123"
+        const produsId = card.id.replace('produs-', '');
+        
+        // Luăm datele direct din DOM (sau am putea face un fetch rapid)
+        const nume = card.querySelector('h3').innerText;
+        const pretText = card.querySelector('.price').innerText;
+        const pret = parseFloat(pretText.replace(' RON', ''));
+        const imagineFull = card.querySelector('img').src;
+
+        // Pregătim obiectul
+        let cart = window.getCart();
+        const existent = cart.find(item => item.id === produsId);
+
+        if (existent) {
+            existent.cantitate += 1;
+        } else {
+            cart.push({
+                id: produsId,
+                nume: nume,
+                pret: pret,
+                imagine: imagineFull, // Salvăm calea completă pentru a nu avea erori de folder
+                cantitate: 1
+            });
+        }
+
+        window.saveCart(cart);
+        
+        // Feedback vizual: Deschidem popup-ul
+        const popup = document.getElementById('cos-popup');
+        if (popup) popup.classList.add('active');
+
+        // Animație temporară pe buton pentru confirmare
+        const textOriginal = buton.innerText;
+        buton.innerText = "Adăugat! ✓";
+        buton.style.background = "#2ecc71";
+        setTimeout(() => {
+            buton.innerText = textOriginal;
+            buton.style.background = "";
+        }, 1500);
+    }
+});

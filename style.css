@@ -70,6 +70,11 @@ body {
     border: 0.15rem solid var(--main-blue);
     box-shadow: 0 0.5rem 1.5rem rgba(0, 168, 255, 0.15);
     transition: all 0.3s ease;
+    cursor: pointer !important; /* Forțează cursorul de tip link */
+    user-select: none;           /* Împiedică selectarea textului la click accidental */
+    pointer-events: auto;        /* Se asigură că elementul primește click-uri */
+    position: relative;
+    z-index: 2001;
 }
 
 .cart-widget img {
@@ -108,7 +113,7 @@ body {
     /* Gradient discret pentru un aspect 3D modern */
     background: linear-gradient(135deg, var(--main-blue), #0084cc);
     border: none;
-    cursor: pointer;
+    cursor: pointer !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -188,4 +193,136 @@ body {
     transform: scale(1.02);
     box-shadow: 0 10px 20px rgba(0, 168, 255, 0.3);
     transition: all 0.3s ease;
+}
+
+/* --- WIDGETS FIXE (DREAPTA JOS) --- */
+.fixed-widgets {
+    position: fixed;
+    bottom: 1rem; 
+    right: 1rem;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 0.7rem;
+    z-index: 2000;
+}
+
+.cos-widget {
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 3rem;
+    border: 0.15rem solid #00a8ff;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 168, 255, 0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 3.2rem;
+}
+/* FIX IMAGINE COȘ - Aici era problema */
+.cos-widget img {
+    width: 1.4rem !important;
+    height: 1.4rem !important;
+    object-fit: contain;
+}
+
+.cos-widget:hover {
+    background-color: #00a8ff;
+    color: white;
+}
+
+.cos-widget:hover img { filter: brightness(0) invert(1); }
+
+/* Stil pentru Mini-Cart Popup */
+.cos-popup {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 350px;
+    max-height: 500px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+    border: 1px solid rgba(0, 168, 255, 0.1);
+}
+
+.cos-popup.active {
+    display: flex !important; /* Afișat când are clasa active */
+    animation: slideUp 0.3s ease-out;
+}
+
+.cos-popup-header {
+    padding: 1.2rem;
+    background: #f9fbff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+/* Reparare elemente din interiorul Popup-ului */
+.cos-popup-produse .search-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    background: transparent;
+}
+
+.cos-popup-produse .search-item img {
+    width: 50px !important;  /* Imagine mică în popup */
+    height: 50px !important;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.cos-popup-footer {
+    padding: 1.2rem;
+    background: white;
+    border-top: 1px solid #eee;
+}
+
+.cos-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.finalizeaza-btn {
+    width: 100%;
+    background: #102a43;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.finalizeaza-btn:hover { background: #00a8ff; }
+
+#inchide-cos {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #627d98;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    .cos-popup { width: 300px; right: -10px; }
+    .cos-widget span { display: none; }
 }
