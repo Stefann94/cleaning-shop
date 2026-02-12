@@ -7,7 +7,9 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         baie: resolve(__dirname, 'baie/baie.html'),
-        login: resolve(__dirname, 'login/login.html')
+        login: resolve(__dirname, 'login/login.html'),
+        bucatarie: resolve(__dirname, 'bucatarie/bucatarie.html'),
+        
         // Adaugă aici restul paginilor pe măsură ce le faci:
         // bucatarie: resolve(__dirname, 'bucatarie/bucatarie.html'),
       },
