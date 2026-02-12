@@ -1,3 +1,8 @@
+// bucatarie/bucatarie.js
+
+// 1. Setați categoria pentru a filtra produsele corect din Supabase
+const CATEGORIE_CURENTA = 'bucatarie'; 
+
 let isFetching = false;
 
 async function fetchProducts() {
@@ -5,19 +10,34 @@ async function fetchProducts() {
     isFetching = true;
 
     const container = document.getElementById('products-container');
+    const subtitle = document.querySelector('.subtitle-blue');
     
-    // Verificăm dacă clientul Supabase este disponibil
     if (!window.supaClient) {
-        console.error('supaClient nu este definit. Verifică supabase-config.js');
+        console.error('supaClient nu este definit.');
         isFetching = false;
         return;
     }
 
-    // Preluăm produsele filtrând strict după categoria 'bucatarie'
-    const { data: produse, error } = await window.supaClient
+    // 2. Extragem subcategoria din URL (?sub=Degresanți)
+    const urlParams = new URLSearchParams(window.location.search);
+    let subcategorieURL = urlParams.get('sub');
+
+    // 3. Construim query-ul de bază
+    let query = window.supaClient
         .from('produse')
         .select('*')
-        .eq('categorie', 'bucatarie'); 
+        .eq('categorie', CATEGORIE_CURENTA);
+
+    // 4. Aplicăm filtrul de subcategorie dacă există în URL
+    if (subcategorieURL) {
+        // .trim() elimină spațiile accidentale
+        query = query.eq('subcategorie', subcategorieURL.trim());
+        
+        // Actualizăm textul albastru de sub titlu cu numele filtrului
+        if (subtitle) subtitle.innerText = subcategorieURL;
+    }
+
+    const { data: produse, error } = await query;
 
     if (error) {
         console.error('Eroare la preluare:', error);
@@ -26,41 +46,46 @@ async function fetchProducts() {
         return;
     }
 
-    // Curățăm mesajul de "Încărcare"
     container.innerHTML = ''; 
 
-    if (produse.length === 0) {
-        container.innerHTML = '<p>Nu s-au găsit produse în această categorie.</p>';
+    if (!produse || produse.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                <p>Nu s-au găsit produse în această selecție.</p>
+                <a href="bucatarie.html" style="color: var(--main-blue); text-decoration: underline;">Vezi toate produsele de bucătărie</a>
+            </div>`;
         isFetching = false;
         return;
     }
 
-    // Generăm cardurile de produs
-    produse.forEach(p => {
-        const card = `
-            <div class="product-card" id="produs-${p.id}" data-category="${p.subcategorie || ''}">
-                ${p.este_nou ? '<div class="product-badge">Nou</div>' : ''}
-                <div class="product-image">
-                    <img src="../pictures/${p.imagine}" alt="${p.nume}">
-                </div>
-                <div class="product-info">
-                    <h3>${p.nume}</h3>
-                    <p class="price">${p.pret.toFixed(2)} RON</p>
-                    <button class="add-btn">Adaugă în coș</button>
-                </div>
+    // 5. Generăm cardurile de produs
+// În interiorul produse.forEach, modifică linia cu <img>:
+
+produse.forEach(p => {
+    const card = `
+        <div class="product-card" id="produs-${p.id}">
+            ${p.este_nou ? '<div class="product-badge">Nou</div>' : ''}
+            <div class="product-image">
+                <img src="../pictures/${p.imagine}" alt="${p.nume}">
             </div>
-        `;
-        container.insertAdjacentHTML('beforeend', card);
-    });
+            <div class="product-info">
+                <h3>${p.nume}</h3>
+                <p class="price">${p.pret.toFixed(2)} RON</p>
+                <button class="add-btn">Adaugă în coș</button>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', card);
+});
 
     isFetching = false;
-
-    // Activăm logica de scroll dacă utilizatorul vine din Search
+    
+    // Rulăm logica de scroll dacă venim din Search
     handleSearchNavigation();
 }
 
 /**
- * Verifică dacă există un ID de produs în URL (venit din Search) și face scroll la el
+ * Verifică dacă există un ID de produs în URL și face scroll la el
  */
 function handleSearchNavigation() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -72,11 +97,10 @@ function handleSearchNavigation() {
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-                // Efect de evidențiere (highlight)
                 targetElement.style.transition = "all 0.5s ease";
                 targetElement.style.outline = "3px solid #00a8ff";
                 targetElement.style.boxShadow = "0 0 20px rgba(0, 168, 255, 0.4)";
-                targetElement.style.transform = "scale(1.02)";
+                targetElement.style.transform = "scale(1.05)";
 
                 setTimeout(() => {
                     targetElement.style.outline = "none";
@@ -88,5 +112,5 @@ function handleSearchNavigation() {
     }
 }
 
-// Inițializăm încărcarea
+// 6. Pornim procesul la încărcarea paginii
 document.addEventListener('DOMContentLoaded', fetchProducts);
