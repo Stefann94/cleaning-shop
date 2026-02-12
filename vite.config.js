@@ -15,7 +15,7 @@ export default defineConfig({
         igiena: resolve(__dirname, 'igiena/igiena.html'),
         accesorii: resolve(__dirname, 'accesorii/accesorii.html'),
         contact: resolve(__dirname, 'contact/contact.html'),
-        checkout: resolve(__dirname, 'checkout/checkout.html')
+        checkout: resolve(__dirname, 'checkout.html')
         
         
       },
