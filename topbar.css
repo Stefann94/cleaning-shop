@@ -187,3 +187,56 @@
 }
 
 /* Putem șterge @keyframes marqueeMobile dacă nu îl mai folosim nicăieri altundeva */
+
+
+/* Stil pentru lista de sugestii search */
+.search-results-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    margin-top: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 2000;
+    display: none; /* Ascuns implicit */
+}
+
+.search-results-container.active {
+    display: block;
+}
+
+.search-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--dark-text);
+    transition: background 0.2s;
+    border-bottom: 1px solid #f1f4f7;
+}
+
+.search-item:hover {
+    background-color: #f1f4f7;
+}
+
+.search-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.search-item-info h4 {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.search-item-info span {
+    font-size: 0.75rem;
+    color: var(--main-blue);
+}

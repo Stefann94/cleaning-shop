@@ -127,10 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="topbar">
         <div class="topbar-container">
             <div class="top-search">
-                <input type="text" placeholder="Caută produse">
+                <input type="text" id="global-search" placeholder="Caută produse">
                 <button class="search-btn">
-                    <img src="${pathPrefix}pictures/search-icon.png" alt="Search">
+                    <img src="/pictures/search-icon.png" alt="Search">
                 </button>
+                <div id="search-results" class="search-results-container"></div>
             </div>
 
             <div class="topbar-items">
