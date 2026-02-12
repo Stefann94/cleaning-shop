@@ -276,37 +276,33 @@ startSearchLogic();
 
 // --- LOGICA PENTRU AFIȘARE NUME UTILIZATOR / LOGIN ---
 const initAuthObserver = () => {
-    // Verificăm dacă Supabase este disponibil
     if (!window.supaClient) {
         setTimeout(initAuthObserver, 100);
         return;
     }
 
-    // Această funcție detectează automat starea de login
     window.supaClient.auth.onAuthStateChange((event, session) => {
         const authContainer = document.querySelector('.top-auth');
         if (!authContainer) return;
 
         if (session) {
-            // DACĂ ESTE LOGAT:
             const user = session.user;
-            // Luăm numele din metadate (setat la Sign Up) sau prima parte din email
             const userName = user.user_metadata.full_name || user.email.split('@')[0];
 
+            // Curățăm clasa de "bulină" dacă există și punem conținutul
             authContainer.innerHTML = `
-                <span class="user-welcome">Salut, <strong>${userName}</strong></span>
-                <span class="auth-divider"></span>
-                <a href="#" id="logout-link" class="auth-link">Log Out</a>
+                <div class="user-logged-wrapper">
+                    <span class="user-welcome">Salut, <strong>${userName}</strong></span>
+                    <a href="#" id="logout-link" class="logout-minimal">Ieșire</a>
+                </div>
             `;
 
-            // Adăugăm logica de Log Out
             document.getElementById('logout-link').onclick = async (e) => {
                 e.preventDefault();
                 await window.supaClient.auth.signOut();
-                window.location.reload(); // Refresh pentru a reveni la butoanele de Login
+                window.location.reload();
             };
         } else {
-            // DACĂ NU ESTE LOGAT:
             authContainer.innerHTML = `
                 <a href="/login/login.html" class="auth-link login">Log In</a>
                 <span class="auth-divider"></span>
@@ -316,5 +312,4 @@ const initAuthObserver = () => {
     });
 };
 
-// Apelează funcția imediat după ce s-a încărcat DOM-ul
 initAuthObserver();
