@@ -407,6 +407,8 @@ document.addEventListener('click', (e) => {
 // Inițializare la load
 setTimeout(window.renderCart, 500);
 
+
+
 // --- LOGICA GLOBALĂ: ASCULTĂTOR PENTRU ORICE BUTON "ADĂUGĂ ÎN COȘ" ---
 document.addEventListener('click', async (e) => {
     // Verificăm dacă elementul apăsat este un buton de adăugare
@@ -462,32 +464,3 @@ document.addEventListener('click', async (e) => {
 
 
 
-checkoutForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const cos = window.getCart();
-    const total = cos.reduce((acc, item) => acc + (item.pret * item.cantitate), 0);
-
-    const dateComanda = {
-        client_nume: document.getElementById('nume').value,
-        client_email: document.getElementById('email').value,
-        client_telefon: document.getElementById('telefon').value,
-        client_adresa: document.getElementById('adresa').value,
-        produse: cos,
-        total_plata: total
-    };
-
-    // 1. Salvare în Supabase
-    const { data, error } = await window.supaClient
-        .from('comenzi')
-        .insert([dateComanda]);
-
-    if (error) {
-        alert("Eroare la salvarea comenzii!");
-    } else {
-        // 2. Trimitere Email (Varianta simplă cu EmailJS sau Edge Functions)
-        alert("Comandă plasată cu succes!");
-        localStorage.removeItem('cart');
-        window.location.href = 'index.html';
-    }
-});
