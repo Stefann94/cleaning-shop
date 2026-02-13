@@ -528,15 +528,25 @@ async function loadReviews(productId) {
 }
 
 async function loadRecommendations(currentId, pathPrefix) {
-    const { data: produse } = await window.supaClient.from('produse').select('*').neq('id', currentId).limit(4);
-    if (produse) {
-        document.getElementById('random-products-container').innerHTML = produse.map(p => `
+    const { data: produse } = await window.supaClient.from('produse').select('*').neq('id', currentId).limit(8);
+    
+    const container = document.getElementById('random-products-container');
+    if (produse && container) {
+        // Ne asigurăm că are clasa pentru carousel
+        container.classList.add('carousel-mode');
+        
+        container.innerHTML = produse.map(p => `
             <div class="product-card" id="produs-${p.id}">
                 <div class="product-image">
-                    <a href="${pathPrefix}produs.html?id=${p.id}"><img src="${pathPrefix}pictures/${p.imagine}"></a>
+                    <a href="${pathPrefix}produs.html?id=${p.id}">
+                        <img src="${pathPrefix}pictures/${p.imagine}" alt="${p.nume}">
+                    </a>
                 </div>
                 <div class="product-info">
-                    <h3>${p.nume}</h3><p class="price">${p.pret.toFixed(2)} RON</p>
+                    <a href="${pathPrefix}produs.html?id=${p.id}" style="text-decoration:none; color:inherit;">
+                        <h3>${p.nume}</h3>
+                    </a>
+                    <p class="price">${p.pret.toFixed(2)} RON</p>
                     <button class="add-btn">Adaugă în coș</button>
                 </div>
             </div>

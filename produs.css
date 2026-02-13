@@ -1,134 +1,266 @@
-/* produs.css */
+/* produs.css - Versiune Completă și Optimizată */
+
+/* --- VARIABILE LOCALE --- */
+:root {
+    --p-bg: #fcfcfc;
+    --p-white: #ffffff;
+    --p-shadow: 0 0.6rem 1.8rem rgba(0,0,0,0.05);
+    --p-radius-lg: 1.8rem;
+    --p-radius-md: 1.2rem;
+}
 
 .product-page {
     padding-bottom: 5rem;
-    padding-top: calc(var(--nav-height) + 7rem) !important;
-    background-color: #fcfcfc;
+    padding-top: calc(var(--nav-height) + 6rem) !important;
+    background-color: var(--p-bg);
 }
 
+/* --- CONTAINER PRINCIPAL --- */
 .product-single-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     gap: 4rem;
-    background: #fff;
+    background: var(--p-white);
     padding: 3rem;
-    border-radius: 30px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    border-radius: var(--p-radius-lg);
+    box-shadow: var(--p-shadow);
     margin-bottom: 4rem;
 }
 
-/* Imagine Produs */
+/* --- GALERIE IMAGINE --- */
 .product-gallery {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
-    overflow: hidden;
-    background: #f9f9f9;
+    border-radius: var(--p-radius-md);
+    background: var(--p-white);
+    border: 0.06rem solid #f0f0f0;
+    padding: 1.5rem;
+    min-height: 25rem;
 }
 
 .product-gallery img {
     width: 100%;
-    max-height: 500px;
+    max-height: 30rem;
     object-fit: contain;
     transition: transform 0.5s ease;
 }
 
-/* Detalii Produs */
-.product-info-details h1 {
-    font-size: 2.2rem;
-    color: var(--dark-text);
-    margin-bottom: 1rem;
-    font-weight: 850;
+/* --- DETALII PRODUS --- */
+.product-info-details {
+    display: flex;
+    flex-direction: column;
 }
 
 .product-category-tag {
     color: var(--main-blue);
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    display: block;
-    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1rem;
+    margin-bottom: 1rem;
 }
 
-.product-description {
-    color: #636e72;
-    margin-bottom: 2rem;
-    line-height: 1.8;
+.product-info-details h1 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    color: var(--dark-text);
+    margin-bottom: 0.5rem;
+    font-weight: 850;
+    line-height: 1.2;
 }
 
 .product-info-details .price {
-    font-size: 2rem;
-    margin-bottom: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    color: var(--main-blue);
+    font-weight: 800;
+    margin-bottom: 2rem;
     display: block;
 }
 
-/* Recenzii */
+.product-description h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: var(--dark-text);
+}
+
+.product-description p {
+    color: #636e72;
+    line-height: 1.8;
+}
+
+/* Buton Adaugă Principal */
+.product-info-details .add-btn {
+    background: var(--dark-text);
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.product-info-details .add-btn:hover {
+    background: var(--main-blue);
+    transform: translateY(-0.2rem);
+    box-shadow: 0 0.6rem 1.2rem rgba(0, 168, 255, 0.2);
+}
+
+/* --- RECENZII --- */
 .reviews-section {
-    margin-top: 4rem;
+    background: var(--p-white);
+    padding: 3rem;
+    border-radius: var(--p-radius-lg);
+    box-shadow: var(--p-shadow);
+    margin-bottom: 4rem;
 }
 
 .reviews-wrapper {
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1.5fr 1fr;
     gap: 3rem;
+    margin-top: 2rem;
 }
 
 .review-card {
-    background: white;
+    background: #f8fbff;
     padding: 1.5rem;
-    border-radius: 15px;
-    margin-bottom: 1rem;
-    border: 1px solid #f1f1f1;
+    border-radius: 1.1rem;
+    margin-bottom: 1.2rem;
+    border-left: 0.25rem solid var(--main-blue);
 }
 
 .review-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.8rem;
 }
 
 .review-name { font-weight: 700; color: var(--dark-text); }
-.stars { color: #f1c40f; }
+.stars { color: #f1c40f; letter-spacing: 0.1rem; }
 
 .add-review-form {
-    background: white;
+    background: var(--p-white);
     padding: 2rem;
-    border-radius: 20px;
+    border-radius: var(--p-radius-md);
+    border: 0.06rem solid #f0f0f0;
     height: fit-content;
     position: sticky;
-    top: 150px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+    top: 120px;
 }
 
 .add-review-form h3 { margin-bottom: 1.5rem; }
+
 .add-review-form input, 
 .add-review-form select, 
 .add-review-form textarea {
     width: 100%;
-    padding: 12px;
+    padding: 0.9rem;
     margin-bottom: 1rem;
-    border: 1px solid #eee;
-    border-radius: 10px;
+    border: 0.06rem solid #e0e0e0;
+    border-radius: 0.75rem;
     font-family: inherit;
+    background: #fcfcfc;
 }
 
-/* Adaptare Mobil */
-@media (max-width: 768px) {
+/* --- CAROUSEL RECOMANDĂRI --- */
+.recommendations {
+    padding: 2rem 0;
+}
+
+#random-products-container.carousel-mode {
+    display: flex !important;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 1.5rem 0.5rem;
+    scrollbar-width: none;
+}
+
+#random-products-container::-webkit-scrollbar { display: none; }
+
+/* Cardurile din Carousel */
+.carousel-mode .product-card {
+    min-width: 18rem;
+    max-width: 18rem;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    background: var(--p-white);
+    border-radius: var(--p-radius-md);
+    padding: 1.2rem;
+    border: 0.06rem solid #eee;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Imaginea din Card (Carousel) */
+.carousel-mode .product-image {
+    width: 100%;
+    height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9f9f9;
+    border-radius: 0.8rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.carousel-mode .product-image img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.carousel-mode .product-info h3 {
+    font-size: 1rem;
+    min-height: 2.8rem;
+    margin-bottom: 0.8rem;
+}
+
+/* --- NAVIGARE CAROUSEL (SĂGEȚI) --- */
+.nav-arrow {
+    background: var(--p-white);
+    border: 0.06rem solid #ddd;
+    border-radius: 50%;
+    width: 2.8rem;
+    height: 2.8rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0.2rem 0.6rem rgba(0,0,0,0.05);
+}
+
+.nav-arrow:hover {
+    background: var(--main-blue);
+    color: white;
+    border-color: var(--main-blue);
+}
+
+/* --- RESPONSIVITATE --- */
+@media (max-width: 48rem) {
+    .product-page { padding-top: calc(var(--nav-height) + 4rem) !important; }
+    
     .product-single-container {
-        grid-template-columns: 1fr;
         padding: 1.5rem;
         gap: 2rem;
     }
-    
+
     .reviews-wrapper {
         grid-template-columns: 1fr;
     }
 
-    .product-info-details h1 { font-size: 1.6rem; }
-    
-    .add-review-form {
-        position: static;
+    .add-review-form { position: static; }
+
+    .carousel-mode .product-card {
+        min-width: 14rem;
+        max-width: 14rem;
     }
+
+    .nav-arrow { display: none; } /* Pe mobil folosim swipe-ul nativ */
 }
