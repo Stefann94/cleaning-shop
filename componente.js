@@ -7,6 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const pathPrefix = isSubpage ? "../" : "";
 
+    // --- ACTIVARE PAGINA PRODUS (DOAR DACĂ EXISTĂ ELEMENTUL PE PAGINĂ) ---
+    const productContainer = document.getElementById('product-main-content');
+        if (productContainer) {
+            initProductPageLogic(pathPrefix);
+}
+
     const headerHTML = `
     <nav class="navbar">
         <div class="nav-container">
@@ -415,7 +421,7 @@ document.addEventListener('click', async (e) => {
     if (e.target.classList.contains('add-btn')) {
         const buton = e.target;
         // Căutăm cel mai apropiat card de produs pentru a-i lua datele
-        const card = buton.closest('.product-card');
+            const card = buton.closest('.product-card') || buton.closest('.product-info-details');
         
         if (!card) return;
 
@@ -463,4 +469,93 @@ document.addEventListener('click', async (e) => {
 
 
 
+// --- LOGICA PAGINA PRODUS (SABLON DINAMIC) ---
+async function initProductPageLogic(pathPrefix) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    if (!productId) return;
 
+    // Fetch Date Produs din Supabase
+    const { data: produs, error } = await window.supaClient
+        .from('produse')
+        .select('*')
+        .eq('id', productId)
+        .single();
+
+    if (error || !produs) {
+        document.getElementById('product-main-content').innerHTML = "<p>Produsul nu a fost găsit.</p>";
+        return;
+    }
+
+    // Randare Continut Produs
+    document.getElementById('product-main-content').innerHTML = `
+        <div class="product-gallery">
+            <img src="${produs.imagine.startsWith('..') ? produs.imagine : pathPrefix + 'pictures/' + produs.imagine}" alt="${produs.nume}">
+        </div>
+        <div class="product-info-details" id="produs-${produs.id}">
+            <span class="product-category-tag">${produs.categorie}</span>
+            <h1>${produs.nume}</h1>
+            <p class="price">${produs.pret.toFixed(2)} RON</p>
+            <div class="product-description">
+                <h3>Descriere Produs</h3>
+                <p>${produs.descriere || 'Acest produs profesional oferă performanță maximă în curățarea casei tale.'}</p>
+            </div>
+            <button class="add-btn" style="width: auto; padding: 1rem 3rem; margin-top: 2rem;">Adaugă în coș</button>
+        </div>
+    `;
+
+    // Incarcam sectiunile secundare
+    loadReviews(productId);
+    loadRecommendations(productId, pathPrefix);
+    setupReviewSubmission(productId);
+}
+
+// --- FUNCTII AUXILIARE PENTRU PRODUS ---
+async function loadReviews(productId) {
+    const container = document.getElementById('reviews-container');
+    const { data: recenzii } = await window.supaClient.from('recenzii').select('*').eq('product_id', productId).order('created_at', {ascending: false});
+    if (recenzii && recenzii.length > 0) {
+        container.innerHTML = recenzii.map(r => `
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="review-name">${r.nume_utilizator}</span>
+                    <span class="stars">${'★'.repeat(r.stele)}${'☆'.repeat(5-r.stele)}</span>
+                </div>
+                <p>${r.comentariu}</p>
+            </div>
+        `).join('');
+    } else { container.innerHTML = '<p>Fii primul care lasă o recenzie!</p>'; }
+}
+
+async function loadRecommendations(currentId, pathPrefix) {
+    const { data: produse } = await window.supaClient.from('produse').select('*').neq('id', currentId).limit(4);
+    if (produse) {
+        document.getElementById('random-products-container').innerHTML = produse.map(p => `
+            <div class="product-card" id="produs-${p.id}">
+                <div class="product-image">
+                    <a href="${pathPrefix}produs.html?id=${p.id}"><img src="${pathPrefix}pictures/${p.imagine}"></a>
+                </div>
+                <div class="product-info">
+                    <h3>${p.nume}</h3><p class="price">${p.pret.toFixed(2)} RON</p>
+                    <button class="add-btn">Adaugă în coș</button>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+function setupReviewSubmission(productId) {
+    const form = document.getElementById('review-form');
+    if (!form) return;
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const payload = {
+            product_id: productId,
+            nume_utilizator: document.getElementById('rev-nume').value,
+            stele: parseInt(document.getElementById('rev-rating').value),
+            comentariu: document.getElementById('rev-text').value
+        };
+        const { error } = await window.supaClient.from('recenzii').insert([payload]);
+        if (!error) { alert("Recenzie adăugată!"); location.reload(); }
+    };
+}

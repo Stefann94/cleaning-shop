@@ -66,10 +66,14 @@ produse.forEach(p => {
         <div class="product-card" id="produs-${p.id}">
             ${p.este_nou ? '<div class="product-badge">Nou</div>' : ''}
             <div class="product-image">
-                <img src="../pictures/${p.imagine}" alt="${p.nume}">
+                <a href="../produs.html?id=${p.id}">
+                    <img src="../pictures/${p.imagine}" alt="${p.nume}">
+                </a>
             </div>
             <div class="product-info">
-                <h3>${p.nume}</h3>
+                <a href="../produs.html?id=${p.id}" style="text-decoration: none; color: inherit;">
+                    <h3>${p.nume}</h3>
+                </a>
                 <p class="price">${p.pret.toFixed(2)} RON</p>
                 <button class="add-btn">Adaugă în coș</button>
             </div>

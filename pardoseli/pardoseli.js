@@ -59,22 +59,26 @@ async function fetchProducts() {
     }
 
     // 5. Generăm cardurile de produs
-    produse.forEach(p => {
-        const card = `
-            <div class="product-card" id="produs-${p.id}">
-                ${p.este_nou ? '<div class="product-badge">Nou</div>' : ''}
-                <div class="product-image">
+produse.forEach(p => {
+    const card = `
+        <div class="product-card" id="produs-${p.id}">
+            ${p.este_nou ? '<div class="product-badge">Nou</div>' : ''}
+            <div class="product-image">
+                <a href="../produs.html?id=${p.id}">
                     <img src="../pictures/${p.imagine}" alt="${p.nume}">
-                </div>
-                <div class="product-info">
-                    <h3>${p.nume}</h3>
-                    <p class="price">${p.pret.toFixed(2)} RON</p>
-                    <button class="add-btn">Adaugă în coș</button>
-                </div>
+                </a>
             </div>
-        `;
-        container.insertAdjacentHTML('beforeend', card);
-    });
+            <div class="product-info">
+                <a href="../produs.html?id=${p.id}" style="text-decoration: none; color: inherit;">
+                    <h3>${p.nume}</h3>
+                </a>
+                <p class="price">${p.pret.toFixed(2)} RON</p>
+                <button class="add-btn">Adaugă în coș</button>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', card);
+});
 
     isFetching = false;
     

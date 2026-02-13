@@ -357,3 +357,17 @@ body {
 .cos-popup-produse::-webkit-scrollbar-thumb:hover {
     background: #00a8ff; /* Se face albastru când treci cu mouse-ul */
 }
+
+
+/* Face ca imaginea și titlul să aibă mânuță la hover */
+.product-image a, 
+.product-info a {
+    cursor: pointer;
+    display: block;
+}
+
+/* Opțional: efect de mărire ușoară a pozei când e link */
+.product-image img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalii Produs - Cleaning Shop</title>
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/topbar.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/produs.css">
+</head>
+<body>
+
+<main class="product-page">
+    <div class="wrapper">
+        <div id="product-main-content" class="product-single-container">
+            <p class="loading-text">Se încarcă detaliile produsului...</p>
+        </div>
+
+        <section class="reviews-section">
+            <h2 class="section-title">Recenzii Clienți</h2>
+            <div class="reviews-wrapper">
+                <div id="reviews-container">
+                    <p class="no-reviews">Se încarcă recenziile...</p>
+                </div>
+                
+                <div class="add-review-form">
+                    <h3>Adaugă o recenzie</h3>
+                    <form id="review-form">
+                        <input type="text" id="rev-nume" placeholder="Numele tău" required>
+                        <select id="rev-rating">
+                            <option value="5">5 Stele</option>
+                            <option value="4">4 Stele</option>
+                            <option value="3">3 Stele</option>
+                            <option value="2">2 Stele</option>
+                            <option value="1">1 Stea</option>
+                        </select>
+                        <textarea id="rev-text" placeholder="Părerea ta despre produs..." required></textarea>
+                        <button type="submit" class="add-btn">Trimite Recenzia</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="recommendations">
+            <h2 class="section-title">Alte produse recomandate</h2>
+            <div id="random-products-container" class="products-grid">
+                </div>
+        </section>
+    </div>
+</main>
+
+<script type="module" src="/supabase-config.js"></script>
+<script type="module" src="/componente.js"></script>
+</body>
+</html>
