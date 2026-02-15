@@ -1,70 +1,72 @@
-/* 1. VARIABILE ȘI RESTART */
+/* 1. VARIABILE RAFINATE */
 :root {
-    --bg-light: #f1f4f7;
-    --divider-color: #cbd5e0;
-    --danger-red: #ff7675;
-    --danger-dark: #d63031;
+    --nav-height: 4.5rem;
+    --main-blue: #00a8ff;
+    --deep-navy: #0f172a;       /* Fundalul principal solid */
+    --slate-text: #94a3b8;      /* Gri albăstrui elegant pentru info */
+    --text-white: #f8fafc;
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 2. STRUCTURĂ TOPBAR */
 .topbar {
-    background-color: #ffffff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    height: 3.5rem; 
+    background-color: var(--deep-navy) !important;
+    border-bottom: 1px solid var(--border-soft);
+    height: 3.2rem;
     display: flex;
     align-items: center;
     position: fixed;
-    top: var(--nav-height);
+    /* POZIȚIONARE: Stă sub Navbar */
+    top: var(--nav-height); 
     width: 100%;
-    z-index: 999;
+    /* Z-INDEX: Mai mic decât navbar (1000) ca să nu acopere dropdown-ul */
+    z-index: 998; 
 }
 
 .topbar-container {
-    width: 90%;
+    width: 92%;
     max-width: 1800px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    overflow: visible !important;
 }
 
-/* 3. ELEMENTE COMUNE (PILLS) */
-.top-search, 
-.top-auth {
-    height: 60%;
-    background: var(--bg-light);
-    border-radius: 50px;
+/* 3. LOGICA SEARCH (Minimalist Tech) */
+.top-search {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--border-soft) !important;
+    height: 2.2rem;
+    border-radius: 8px;
+    width: clamp(220px, 25vw, 420px);
+    padding: 0 12px;
     display: flex;
     align-items: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 4. LOGICA SEARCH */
-.top-search {
-    padding: 0 1rem;
-    width: clamp(150px, 20vw, 350px);
-    border: 1px solid transparent;
-    flex-shrink: 0;
+    transition: var(--transition-smooth);
     position: relative;
 }
 
 .top-search:focus-within {
-    background: #fff;
-    border-color: var(--main-blue);
-    box-shadow: 0 0 0 0.25rem rgba(0, 168, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: var(--main-blue) !important;
+    box-shadow: 0 0 15px rgba(0, 168, 255, 0.15);
 }
 
 .top-search input {
     background: transparent;
     border: none;
-    padding: 0 0.5rem;
+    padding: 0 8px;
     font-family: 'Montserrat', sans-serif;
     font-size: 0.85rem;
-    color: var(--dark-text);
+    color: var(--text-white) !important;
     width: 100%;
     outline: none;
+}
+
+.top-search input::placeholder {
+    color: var(--slate-text);
 }
 
 .search-btn {
@@ -72,28 +74,31 @@
     border: none;
     cursor: pointer;
     display: flex;
-    align-items: center;
-}
-
-.search-btn img {
-    height: 1rem;
-    width: auto;
     opacity: 0.6;
+    transition: 0.2s;
 }
 
-/* 5. REZULTATE SEARCH */
+.search-btn:hover { opacity: 1; }
+.search-btn img { 
+    height: 0.9rem; 
+    filter: brightness(0) invert(1); 
+}
+
+/* 4. REZULTATE SEARCH (Dark Card) */
 .search-results-container {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 10px);
     left: 0;
     width: 100%;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    max-height: 300px;
+    background: #1e293b !important;
+    border-radius: 10px;
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    max-height: 350px;
     overflow-y: auto;
     z-index: 2000;
     display: none;
+    padding: 8px 0;
 }
 
 .search-results-container.active { display: block; }
@@ -101,134 +106,143 @@
 .search-item {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
+    padding: 12px 16px;
     gap: 12px;
     text-decoration: none;
-    color: var(--dark-text);
-    border-bottom: 1px solid var(--bg-light);
+    color: var(--text-white) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     transition: background 0.2s;
 }
 
-.search-item:hover { background-color: var(--bg-light); }
-.search-item img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
+.search-item:hover { background-color: rgba(255, 255, 255, 0.05); }
+.search-item img { width: 35px; height: 35px; border-radius: 4px; object-fit: cover; }
 
-/* 6. LOGICA AUTH / USER LOGGED */
+/* 5. LOGICA AUTH REPARATĂ */
 .top-auth {
-    padding: 0 1.5rem; /* Mărit de la 1.2rem pentru desktop */
-    gap: 1rem;         /* Distanță mai mare între elemente */
-    flex-shrink: 0;
-    min-width: fit-content;
+    background: transparent !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: auto;
+    padding: 0 !important;
 }
 
 .user-logged-wrapper {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
 }
 
-.auth-link, 
+/* Salut, X - REPARAT (Culoare deschisă) */
 .user-welcome {
-    text-decoration: none;
-    font-size: 0.8rem; /* Text ușor mai mare pe desktop */
+    color: var(--slate-text) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.user-welcome strong {
+    color: var(--text-white) !important;
     font-weight: 700;
-    color: var(--dark-text);
-    white-space: nowrap;
 }
 
-.auth-link:hover, 
-.auth-link.signup, 
-.user-welcome strong { 
-    color: var(--main-blue); 
+/* LOGIN / SIGNUP Linkuri */
+.auth-link.login {
+    color: var(--slate-text) !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-decoration: none;
+    transition: var(--transition-smooth);
 }
 
-.auth-divider {
-    width: 1px;
-    height: 14px;
-    background: var(--divider-color);
+.auth-link.login:hover {
+    color: var(--text-white) !important;
 }
 
-/* BUTON IEȘIRE REPARAT - Folosim button.logout-btn pentru prioritate */
-button.logout-btn {
-    all: unset; /* Resetăm orice stil de buton de sistem */
-    background-color: var(--main-blue);
+.auth-link.signup {
+    background: var(--main-blue) !important;
     color: white !important;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 50px;
-    font-size: 0.7rem;
-    font-weight: 800;
-    text-transform: uppercase;
+    padding: 8px 20px !important;
+    border-radius: 6px !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 168, 255, 0.25);
+    transition: var(--transition-smooth);
+}
+
+/* BUTON IEȘIRE - REPARAT (Albastru închis, roșu doar la hover) */
+button.logout-btn {
+    all: unset;
+    /* Fundal albastru închis discret */
+    background: rgba(0, 168, 255, 0.15); 
+    color: var(--main-blue) !important;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(0, 168, 255, 0.2);
 }
 
 button.logout-btn:hover {
-    background-color: var(--danger-dark);
-    transform: scale(1.05);
+    background: #ff7675 !important;
+    color: white !important;
+    border-color: #ff7675;
+    box-shadow: 0 4px 10px rgba(255, 118, 117, 0.3);
 }
 
-/* 7. ELEMENTE ADIȚIONALE (DREAPTA) */
+/* 6. INFO ITEMS */
 .topbar-items {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    justify-content: flex-end;
-    flex: 1;
+    gap: 2.5rem;
 }
 
 .top-item {
     display: flex;
     align-items: center;
-    font-weight: 500;
-    font-size: 0.8rem;
-    color: #636e72;
-    white-space: nowrap;
+    font-size: 0.75rem;
+    color: var(--slate-text);
+    transition: color 0.2s;
 }
+
+.top-item:hover { color: var(--text-white); }
 
 .top-icon {
     width: 14px;
     height: 14px;
-    margin-right: 6px;
-    object-fit: contain;
+    margin-right: 8px;
+    opacity: 0.6;
+    filter: brightness(0) invert(1);
 }
 
-/* 8. RESPONSIVE / MOD MOBIL */
+/* 7. RESPONSIVE / MOBIL */
 @media (max-width: 768px) {
-    .topbar { height: 3.2rem; }
-    .topbar-container { width: 95%; }
+    .topbar { 
+        height: 3.5rem; 
+        /* Pe mobil, topbar se mută sub navbar-ul care poate avea înălțime diferită */
+        top: var(--nav-height);
+    }
     
     .top-item { display: none !important; }
     
     .top-search { 
         width: 45%; 
-        padding: 0 0.8rem;
+        padding: 0 10px;
     }
 
     .top-auth {
-        background: var(--main-blue);
-        padding: 0 0.8rem;
-        box-shadow: 0 2px 8px rgba(0, 168, 255, 0.2);
-        height: 65%;
+        gap: 0.8rem;
     }
 
-    .auth-link, 
-    .user-welcome, 
-    .user-welcome strong {
-        color: white !important;
-        font-size: 0.7rem;
+    .auth-link.signup {
+        padding: 6px 12px !important;
+        font-size: 0.75rem !important;
     }
-
-    .auth-divider { background: rgba(255, 255, 255, 0.4); }
-
-    /* Ajustare buton Logout pe Mobil */
-    button.logout-btn {
-        background: white !important;
-        color: var(--danger-dark) !important;
-        padding: 3px 10px;
-        font-size: 0.6rem;
+    
+    .auth-link.login {
+        font-size: 0.75rem !important;
     }
 }
