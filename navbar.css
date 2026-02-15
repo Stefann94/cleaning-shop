@@ -2,9 +2,11 @@
 
 :root {
     --nav-height: 4.5rem;
-    --main-blue: #00a8ff;
-    --dark-text: #2f3640;
-    --bg-white: #ffffff;
+    --main-blue: #00a8ff;        /* Albastrul tău */
+    --deep-navy: #0f172a;       /* Fundalul închis care dă eleganță */
+    --accent-glow: rgba(0, 168, 255, 0.4);
+    --text-white: #f8fafc;
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Utilitare de aliniere */
@@ -18,11 +20,14 @@
     top: 0;
     width: 100%;
     height: var(--nav-height);
-    background-color: #f0f4f8 !important; 
+    /* Fundal închis cu transparență pentru efect de sticlă */
+    background-color: rgba(15, 23, 42, 0.95) !important; 
+    backdrop-filter: blur(10px); /* Încețoșează ce e în spatele navbar-ului */
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    border-bottom: 1px solid rgba(0, 168, 255, 0.2); /* Linie fină strălucitoare */
     z-index: 1000;
 }
 
@@ -37,7 +42,7 @@
     text-decoration: none;
     font-size: clamp(1.2rem, 1.5vw, 1.8rem);
     font-weight: 800;
-    color: var(--dark-text);
+    color: var(--text-white) !important;
     letter-spacing: 1px;
 }
 
@@ -50,12 +55,14 @@
     display: flex;
 }
 
+
+/* Link-urile din meniu */
 .nav-links a {
     display: inline-flex;
     align-items: center; 
     justify-content: center;
     text-decoration: none;
-    color: var(--main-blue);
+    color: var(--text-white) !important;
     font-weight: 500;
     position: relative;
     transition: text-shadow 0.3s ease;
@@ -76,6 +83,7 @@
 .nav-links a:hover {
     font-weight: 500;
     text-shadow: 0.6px 0 0 currentColor, -0.2px 0 0 currentColor;
+    color: var(--main-blue) !important;
 }
 
 /* ICONIȚA - Reparata pentru a nu strica hover-ul */
@@ -101,7 +109,7 @@
 .bar {
     width: 28px;
     height: 3px;
-    background: var(--dark-text);
+    background: var(--text-white) !important;
     border-radius: 5px;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                 background-color 0.4s ease, 
@@ -114,20 +122,24 @@
 }
 
 .dropdown {
+    /* LOGICA DE POZIȚIONARE (Din primul cod) */
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(15px);
-    background-color: white;
-    min-width: 450px; /* Lățime mai mare pentru a face loc pozei */
-    padding: 0; /* Scoatem padding-ul original */
-    border: 2px solid var(--main-blue); /* Chenarul albastru cerut */
-    box-shadow: 0 10px 30px rgba(0, 168, 255, 0.2);
-    border-radius: 15px;
-    overflow: hidden; /* Pentru a tăia colțurile pozei dacă e nevoie */
+    min-width: 450px; 
+    padding: 0;
     opacity: 0;
     visibility: hidden;
+    overflow: hidden; 
     transition: all 0.3s ease;
+    z-index: 100;
+
+    /* ESTETICA ȘI CULOAREA (Din al doilea cod) */
+    background-color: #1e293b; /* Navy-ul estetic */
+    border: 1px solid var(--main-blue); /* Chenarul albastru fin */
+    border-radius: 12px; /* Rotunjire modernă */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); /* Umbră profundă pentru contrast */
 }
 
 /* Layout-ul interior: link-uri în stânga, poză în dreapta */
@@ -143,7 +155,13 @@
     flex-direction: column;
     justify-content: center;
 }
-
+.dropdown-links a {
+    color: #f8fafc !important; /* Alb mat/albastrui pentru vizibilitate */
+}
+.dropdown-links a:hover {
+    color: var(--main-blue) !important;
+    background-color: rgba(0, 168, 255, 0.1); /* Efect de selecție subtil */
+}
 /* Stilul pentru secțiunea de imagine */
 .dropdown-image {
     flex: 1;
@@ -184,6 +202,7 @@
     padding: 10px 15px !important;
     border-radius: 8px;
     white-space: nowrap;
+    
 }
 /* PUNTEA INVIZIBILĂ - REPARATĂ */
 .has-dropdown::after {
@@ -212,16 +231,18 @@
     margin: 0 8px;
     border-radius: 8px;
     display: block;
-    color: var(--dark-text) !important;
+
+   /* Schimbăm culoarea în alb mat pentru estetică */
+    color: var(--text-white) !important;
     font-size: 0.95rem;
     font-weight: 500;
     transition: all 0.2s ease;
 }
 
 .dropdown li a:hover {
-    background-color: rgba(0, 168, 255, 0.08);
+    background-color: rgba(0, 168, 255, 0.15); /* Albastru transparent */
     color: var(--main-blue) !important;
-    transform: translateX(5px);
+    transform: translateX(8px);
     text-shadow: none !important;
 }
 
@@ -231,6 +252,7 @@
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         padding: 0 5%;
+
     }
 
     .burger-menu { 
@@ -264,6 +286,7 @@
         justify-content: flex-start;
         padding: 10px 10% !important;
         width: 100%;
+        color: var(--deep-navy) !important; /* Aici am pus albastrul închis */
     }
 
     .nav-links.active { left: 0; }
