@@ -196,10 +196,10 @@
 }
 
 /* 4. RESPONSIVE / MOD MOBIL REPARAT */
+/* 4. RESPONSIVE / MOD MOBIL REPARAT */
 @media (max-width: 62rem) {
     .checkout-page { 
         padding-top: 8.75rem; 
-        /* RESETĂRI ESENȚIALE PENTRU MOBIL: */
         height: auto !important; 
         overflow: visible !important; 
     } 
@@ -209,14 +209,69 @@
         gap: 2rem;
     }
     
-    .cart-summary-panel { order: 1; padding: 1.5rem; }
-    .form-panel { order: 2; padding: 1.5rem; position: static; }
+    .cart-summary-panel { 
+        order: 1; 
+        padding: 1.2rem; 
+    }
     
-    .checkout-item img { width: 3.75rem; height: 3.75rem; }
-    .item-details h4 { font-size: 0.95rem; }
+    .form-panel { 
+        order: 2; 
+        padding: 1.5rem; 
+        position: static; 
+    }
+    
+    /* RESTRUCTURARE PRODUS PENTRU TEXT PE O LINIE */
+    .checkout-item {
+        display: grid;
+        grid-template-columns: 4.5rem 1fr; /* Imagine | Restul detaliilor */
+        grid-template-rows: auto auto;    /* Rand 1: Nume | Rand 2: Cantitate + Pret */
+        gap: 0.5rem 1rem;
+        align-items: center;
+        padding: 1rem 0;
+    }
+
+    .checkout-item img { 
+        grid-row: span 2; /* Imaginea ocupa ambele randuri pe inaltime */
+        width: 4.5rem; 
+        height: 4.5rem; 
+    }
+
+    .item-details {
+        display: contents; /* Permite elementelor copii sa se alinieze direct in grid-ul parinte */
+    }
+
+    .item-details h4 { 
+        grid-column: 2;
+        font-size: 0.9rem; 
+        white-space: nowrap;      /* Fortam un singur rand */
+        overflow: hidden;         /* Taiem ce depaseste */
+        text-overflow: ellipsis;  /* Punem puncte-puncte (...) */
+        margin: 0;
+    }
+
+    /* CONTAINER PENTRU BUTOANE SI PRET PE ACELASI RAND */
+    .mobile-controls-row {
+        grid-column: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .item-details p { 
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    .quantity-controls {
+        transform: scale(0.85); /* Micshoram putin butoanele sa nu incarce vizual */
+        transform-origin: left center;
+        margin: 0;
+        padding: 0.2rem 0.5rem;
+    }
 }
 
-/* ASCUNDERE WIDGETS GLOBALE */
+/* ASCUNDERE WIDGETS GLOBALE - Ramane activa mereu pe pagina checkout */
 .fixed-widgets {
     display: none !important;
 }
