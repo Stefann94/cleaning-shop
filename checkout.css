@@ -196,22 +196,23 @@
 }
 
 /* 4. RESPONSIVE / MOD MOBIL REPARAT */
-/* 4. RESPONSIVE / MOD MOBIL REPARAT */
 @media (max-width: 62rem) {
     .checkout-page { 
-        padding-top: 8.75rem; 
+        padding-top: 8rem; /* Ajustat pentru vizibilitate sub navbar */
         height: auto !important; 
         overflow: visible !important; 
     } 
 
     .checkout-grid { 
         grid-template-columns: 1fr; 
-        gap: 2rem;
+        gap: 1.5rem;
+        height: auto;
     }
     
     .cart-summary-panel { 
         order: 1; 
-        padding: 1.2rem; 
+        padding: 1rem; 
+        height: auto;
     }
     
     .form-panel { 
@@ -223,29 +224,35 @@
     /* RESTRUCTURARE PRODUS PENTRU TEXT PE O LINIE */
     .checkout-item {
         display: grid;
-        grid-template-columns: 4.5rem 1fr; /* Imagine | Restul detaliilor */
-        grid-template-rows: auto auto;    /* Rand 1: Nume | Rand 2: Cantitate + Pret */
+        grid-template-columns: 4.5rem 1fr; 
+        grid-template-rows: auto auto; 
         gap: 0.5rem 1rem;
         align-items: center;
         padding: 1rem 0;
+        border-bottom: 1px solid #f1f5f9;
     }
 
     .checkout-item img { 
-        grid-row: span 2; /* Imaginea ocupa ambele randuri pe inaltime */
+        grid-row: span 2; 
         width: 4.5rem; 
         height: 4.5rem; 
+        object-fit: contain;
+        background: #f8fafc;
+        border-radius: 0.75rem;
     }
 
     .item-details {
-        display: contents; /* Permite elementelor copii sa se alinieze direct in grid-ul parinte */
+        display: contents; 
     }
 
     .item-details h4 { 
         grid-column: 2;
         font-size: 0.9rem; 
-        white-space: nowrap;      /* Fortam un singur rand */
-        overflow: hidden;         /* Taiem ce depaseste */
-        text-overflow: ellipsis;  /* Punem puncte-puncte (...) */
+        font-weight: 700;
+        color: #1e293b;
+        white-space: nowrap;      
+        overflow: hidden;         
+        text-overflow: ellipsis;  
         margin: 0;
     }
 
@@ -255,19 +262,64 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 1rem;
+        gap: 0.5rem;
     }
 
     .item-details p { 
         margin: 0;
-        font-size: 0.95rem;
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--main-blue);
     }
 
+    /* DESIGN CAPSULA CANTITATE OPTIMIZAT */
     .quantity-controls {
-        transform: scale(0.85); /* Micshoram putin butoanele sa nu incarce vizual */
-        transform-origin: left center;
-        margin: 0;
-        padding: 0.2rem 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f1f5f9; /* Fundal neutru pentru contrast */
+        padding: 0.25rem;
+        gap: 0.75rem;
+        border-radius: 2rem;
+        border: 1px solid #e2e8f0;
+        min-width: 6.5rem;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .qty-btn {
+        width: 2rem !important;
+        height: 2rem !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        
+        background: #ffffff !important;
+        border: none !important;
+        color: #0f172a !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+        transition: transform 0.1s ease, background 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        line-height: 0;
+    }
+
+    .qty-btn:active {
+        transform: scale(0.9);
+        background: #e2e8f0 !important;
+    }
+
+    .quantity-controls span {
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #1e293b;
+        user-select: none;
+        min-width: 1.2rem;
+        text-align: center;
     }
 }
 
