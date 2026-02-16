@@ -222,6 +222,7 @@ const widgetsHTML = `
 });
 
 // --- LOGICA SEARCH OPTIMIZATĂ ---
+// --- LOGICA SEARCH REPARATĂ (RPC + DIACRITICE) ---
 const startSearchLogic = () => {
     const searchInput = document.querySelector('#global-search');
     const resultsContainer = document.querySelector('#search-results');
@@ -231,7 +232,6 @@ const startSearchLogic = () => {
         return;
     }
 
-    // Identificăm prefixul pentru a funcționa corect indiferent de folder
     const isSubpage = window.location.pathname.includes('/') && 
                       !window.location.pathname.endsWith('index.html') && 
                       window.location.pathname.split('/').length > 2;
@@ -241,7 +241,6 @@ const startSearchLogic = () => {
 
     searchInput.addEventListener('input', (e) => {
         const term = e.target.value.trim();
-
         clearTimeout(debounceTimer);
 
         if (term.length < 2) {
@@ -251,17 +250,11 @@ const startSearchLogic = () => {
         }
 
         debounceTimer = setTimeout(async () => {
-            if (!window.supaClient) {
-                console.error("Supabase client nu a fost găsit!");
-                return;
-            }
+            if (!window.supaClient) return;
 
-            // IMPORTANT: Am adăugat 'id' în select pentru a funcționa scroll-ul
+            // Apelăm funcția RPC creată în Pasul 1
             const { data, error } = await window.supaClient
-                .from('produse')
-                .select('id, nume, imagine, categorie')
-                .ilike('nume', `%${term}%`)
-                .limit(5);
+                .rpc('cauta_produse_fara_diacritice', { termen_cautat: term });
 
             if (error) {
                 console.error("Eroare la căutare:", error);
@@ -286,7 +279,7 @@ const startSearchLogic = () => {
         }, 300);
     });
 
-    // Închide search-ul dacă dai click în afara lui sau pe un rezultat
+    // Închide la click în afară
     document.addEventListener('click', (e) => {
         if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
             resultsContainer.classList.remove('active');
