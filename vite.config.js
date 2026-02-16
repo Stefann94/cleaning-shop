@@ -16,8 +16,7 @@ export default defineConfig({
         accesorii: resolve(__dirname, 'accesorii/accesorii.html'),
         contact: resolve(__dirname, 'contact/contact.html'),
         checkout: resolve(__dirname, 'checkout.html'),
-        produs: resolve(__dirname, 'produs.html'),
-        checkout: resolve(__dirname, 'checkout.html'),
+        produs: resolve(__dirname, 'produs.html')
         
         
       },
