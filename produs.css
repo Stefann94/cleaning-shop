@@ -18,7 +18,7 @@
 /* --- CONTAINER PRINCIPAL --- */
 .product-single-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: 0.9fr 0.7fr 1.2fr;
     gap: 4rem;
     background: var(--p-white);
     padding: 3rem;
@@ -37,18 +37,54 @@
     border: 0.06rem solid #f0f0f0;
     padding: 1.5rem;
     min-height: 25rem;
+    aspect-ratio: 1 / 1;
 }
 
 .product-gallery img {
-    width: 100%;
+    width: 85%;
     max-height: 30rem;
     object-fit: contain;
     transition: transform 0.5s ease;
 }
 
+/* --- SECTIUNE NOUA: INFO TRANSPORT --- */
+.product-shipping-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    padding: 1rem 2rem;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    height: 100%;
+}
+
+.info-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.info-card span {
+    font-size: 1.5rem; /* Iconite Emoji sau poti pune img */
+}
+
+.info-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin: 0;
+}
+
+.info-text {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0.2rem 0 0 0;
+}
+
 /* --- DETALII PRODUS --- */
 .product-info-details {
     display: flex;
+    gap: 1.2rem;
     flex-direction: column;
 }
 
@@ -58,9 +94,15 @@
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 0.1rem;
-    margin-bottom: 1rem;
+    margin-bottom: -0.5rem;
 }
-
+/* Resetăm marginile browserului pentru a lăsa gap-ul să controleze spațiul */
+.product-info-details h1,
+.product-info-details .price,
+.product-category-tag,
+.product-description {
+    margin: 0; 
+}
 .product-info-details h1 {
     font-size: clamp(1.6rem, 5vw, 2.2rem);
     color: var(--dark-text);
@@ -242,25 +284,65 @@
     border-color: var(--main-blue);
 }
 
-/* --- RESPONSIVITATE --- */
+/* --- RESPONSIVITATE IMBINATA SI OPTIMIZATA --- */
+
+/* Tablete si Ecrane Medii */
+@media (max-width: 75rem) {
+    .product-single-container {
+        grid-template-columns: 1fr 1fr; /* Trecem la 2 coloane pentru imagine si detalii */
+    }
+    .product-shipping-info {
+        grid-column: 1 / -1; /* Sectiunea de transport se intinde pe toata latimea sub ele */
+        flex-direction: row;
+        border: none;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 1.5rem 0;
+        justify-content: space-around;
+    }
+}
+
+/* Telefoane si Tablete mici (Mobile) */
 @media (max-width: 48rem) {
-    .product-page { padding-top: calc(var(--nav-height) + 4rem) !important; }
+    .product-page { 
+        padding-top: calc(var(--nav-height) + 4rem) !important; 
+    }
     
     .product-single-container {
+        grid-template-columns: 1fr; /* Totul pe o singura coloana */
         padding: 1.5rem;
         gap: 2rem;
     }
 
+    /* Imaginea ocupa latime maxima pe mobil */
+    .product-gallery img {
+        width: 100%;
+    }
+
+    /* Info transport revine la lista verticala */
+    .product-shipping-info {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 1rem;
+        gap: 1.2rem;
+    }
+
+    /* Recenzii si Formular */
     .reviews-wrapper {
         grid-template-columns: 1fr;
     }
 
-    .add-review-form { position: static; }
+    .add-review-form { 
+        position: static; /* Nu mai ramane fixat pe mobil */
+    }
 
+    /* Carusel Produse Similare */
     .carousel-mode .product-card {
         min-width: 14rem;
         max-width: 14rem;
     }
 
-    .nav-arrow { display: none; } /* Pe mobil folosim swipe-ul nativ */
+    .nav-arrow { 
+        display: none; /* Folosim scroll tactil (swipe) pe mobil */
+    }
 }

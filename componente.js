@@ -481,21 +481,50 @@ async function initProductPageLogic(pathPrefix) {
     }
 
     // Randare Continut Produs
-    document.getElementById('product-main-content').innerHTML = `
-        <div class="product-gallery">
-            <img src="${produs.imagine.startsWith('..') ? produs.imagine : pathPrefix + 'pictures/' + produs.imagine}" alt="${produs.nume}">
-        </div>
-        <div class="product-info-details" id="produs-${produs.id}">
-            <span class="product-category-tag">${produs.categorie}</span>
-            <h1>${produs.nume}</h1>
-            <p class="price">${produs.pret.toFixed(2)} RON</p>
-            <div class="product-description">
-                <h3>Descriere Produs</h3>
-                <p>${produs.descriere || 'Acest produs profesional oferă performanță maximă în curățarea casei tale.'}</p>
+document.getElementById('product-main-content').innerHTML = `
+    <div class="product-gallery">
+        <img src="${produs.imagine.startsWith('..') ? produs.imagine : pathPrefix + 'pictures/' + produs.imagine}" alt="${produs.nume}">
+    </div>
+
+    <div class="product-shipping-info">
+        <div class="info-card">
+            <img src="${pathPrefix}pictures/truck-icon.png" alt="" class="info-icon">
+            <div>
+                <p class="info-title">Livrare Rapidă</p>
+                <p class="info-text">Estimare: 24h - 48h</p>
             </div>
-            <button class="add-btn" style="width: auto; padding: 1rem 3rem; margin-top: 2rem;">Adaugă în coș</button>
         </div>
-    `;
+        <div class="info-card">
+            <img src="${pathPrefix}pictures/box-icon.png" alt="" class="info-icon">
+            <div>
+                <p class="info-title">Deschidere Colet</p>
+                <p class="info-text">Verifici înainte să plătești</p>
+            </div>
+        </div>
+        <div class="info-card">
+            <img src="${pathPrefix}pictures/return-icon.png" alt="" class="info-icon">
+            <div>
+                <p class="info-title">Retur Gratuit</p>
+                <p class="info-text">Ai 14 zile la dispoziție</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-info-details" id="produs-${produs.id}">
+        <span class="product-category-tag">${produs.categorie}</span>
+        <h1>${produs.nume}</h1>
+        <p class="price">${produs.pret.toFixed(2)} RON</p>
+        
+        <div class="purchase-actions">
+            <button class="add-btn">Adaugă în coș</button>
+        </div>
+
+        <div class="product-description">
+            <h3>Descriere Produs</h3>
+            <p>${produs.descriere || 'Produs profesional de curățenie.'}</p>
+        </div>
+    </div>
+`;
 
     // Incarcam sectiunile secundare
     loadReviews(productId);
@@ -547,18 +576,50 @@ async function loadRecommendations(currentId, pathPrefix) {
     }
 }
 
-function setupReviewSubmission(productId) {
+async function setupReviewSubmission(productId) {
     const form = document.getElementById('review-form');
+    const nameInput = document.getElementById('rev-nume');
     if (!form) return;
+
+    // 1. Verificăm dacă utilizatorul este logat
+    const { data: { session } } = await window.supaClient.auth.getSession();
+    let userName = "";
+
+    if (session) {
+        // Dacă e logat, extragem numele (din metadata sau email)
+        userName = session.user.user_metadata.full_name || session.user.email.split('@')[0];
+        
+        // Ascundem câmpul de nume deoarece îl avem deja
+        if (nameInput) {
+            nameInput.value = userName;
+            nameInput.style.display = "none"; 
+        }
+        
+        // Opțional: adăugăm un mesaj mic sub titlu
+        form.insertAdjacentHTML('afterbegin', `<p style="font-size: 0.85rem; margin-bottom: 1rem; color: #636e72;">Postezi ca: <strong>${userName}</strong></p>`);
+    }
+
     form.onsubmit = async (e) => {
         e.preventDefault();
+        
+        // Dacă nu e logat, folosim ce a scris în input
+        const finalName = session ? userName : document.getElementById('rev-nume').value;
+
         const payload = {
             product_id: productId,
-            nume_utilizator: document.getElementById('rev-nume').value,
+            nume_utilizator: finalName,
             stele: parseInt(document.getElementById('rev-rating').value),
             comentariu: document.getElementById('rev-text').value
         };
+
         const { error } = await window.supaClient.from('recenzii').insert([payload]);
-        if (!error) { alert("Recenzie adăugată!"); location.reload(); }
+        
+        if (!error) { 
+            alert("Recenzia a fost adăugată cu succes!"); 
+            location.reload(); 
+        } else {
+            console.error("Eroare Supabase:", error);
+            alert("Eroare la trimiterea recenziei.");
+        }
     };
 }
