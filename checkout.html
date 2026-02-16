@@ -16,6 +16,11 @@
         <div class="cart-summary-panel">
             <h2>Coșul tău</h2>
             <div id="checkout-list"></div>
+            
+            <div class="total-box">
+                <span>Total de plată:</span>
+                <strong id="final-total-sum">0.00 RON</strong>
+            </div>
         </div>
 
         <div class="form-panel">
@@ -25,16 +30,12 @@
                 <div class="input-group"><input type="email" id="c-email" placeholder="Adresa Email" required></div>
                 <div class="input-group"><input type="tel" id="c-telefon" placeholder="Număr Telefon" required></div>
                 <div class="input-group"><textarea id="c-adresa" rows="3" placeholder="Adresa de livrare" required></textarea></div>
-                <div class="total-box">
-                    <span>Total de plată:</span>
-                    <strong id="final-total-sum">0.00 RON</strong>
-                </div>
+
                 <button type="submit" class="checkout-btn">Finalizează Comanda</button>
             </form>
         </div>
     </div>
 </main>
-
 <script type="module" src="/supabase-config.js"></script>
 <script type="module" src="/componente.js"></script>
 <script type="module" src="/cos.js"></script>

@@ -1,11 +1,14 @@
 /* 1. CONFIGURARE PAGINĂ */
 .checkout-page { 
-    padding-top: 11.25rem; /* ~180px */
-    padding-bottom: 5rem; /* ~80px */
+    padding-top: 9rem; 
+    padding-bottom: 2rem; 
     width: 92%;
-    max-width: 75rem; /* ~1200px */
+    max-width: 75rem; 
     margin: 0 auto;
     font-family: 'Montserrat', sans-serif;
+    /* Împiedicăm scroll-ul întregii pagini pe Desktop pentru panouri fixe */
+    height: 100vh;
+    overflow: hidden;
 }
 
 .checkout-grid {
@@ -18,7 +21,7 @@
 /* 2. PANEL STÂNGA: REZUMAT COȘ */
 .cart-summary-panel {
     background: #ffffff;
-    padding: 2.5rem;
+    padding: 1.5rem 2rem; /* Padding mai compact */
     border-radius: 1.5rem; /* ~24px */
     box-shadow: 0 0.625rem 1.875rem rgba(0,0,0,0.04);
 }
@@ -113,7 +116,7 @@
     border-radius: 1.5rem;
     box-shadow: 0 0.625rem 1.875rem rgba(0,0,0,0.04);
     position: sticky;
-    top: 7.5rem; /* ~120px */
+    top: 1rem; /* ~120px */
 }
 
 .form-panel h3 { 
@@ -192,9 +195,15 @@
     transform: none;
 }
 
-/* 4. RESPONSIVE / MOD MOBIL */
-@media (max-width: 62rem) { /* ~992px */
-    .checkout-page { padding-top: 8.75rem; } /* ~140px */
+/* 4. RESPONSIVE / MOD MOBIL REPARAT */
+@media (max-width: 62rem) {
+    .checkout-page { 
+        padding-top: 8.75rem; 
+        /* RESETĂRI ESENȚIALE PENTRU MOBIL: */
+        height: auto !important; 
+        overflow: visible !important; 
+    } 
+
     .checkout-grid { 
         grid-template-columns: 1fr; 
         gap: 2rem;
