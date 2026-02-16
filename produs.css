@@ -254,25 +254,28 @@
 }
 
 @media (max-width: 48rem) {
-    .product-page {
-        padding-top: calc(var(--nav-height) + 2rem) !important;
+.product-page {
+        padding-top: var(--nav-height) !important;
     }
 
     .product-single-container {
         display: flex;
         flex-direction: column;
         padding: 1.2rem;
-        gap: 1.5rem; /* Redus de la 2.5rem pentru a apropia secțiunile mari */
+        gap: 0.5rem; /* Reduce spațiul dintre galerie și info */
         width: 100%;
         box-sizing: border-box;
     }
 
     /* 1. Galeria */
-    .product-gallery {
+.product-gallery {
         order: 1;
         width: 100%;
         aspect-ratio: 1 / 1;
-        margin-bottom: -0.5rem; /* Forțăm apropierea de titlu */
+        border: none; /* Eliminăm border-ul pentru a câștiga câțiva pixeli */
+        background: transparent;
+        padding: 0; /* Eliminăm padding-ul intern al pozei */
+        margin-bottom: -2.5rem; /* "Tragem" restul conținutului spre poză */
     }
 
     /* 2. Detalii Produs (Grupare Estetică) */
