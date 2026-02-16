@@ -278,3 +278,55 @@ button.logout-btn:hover {
         border-radius: 12px;
     }
 }
+
+
+/* --- FIX EXCLUSIV PENTRU COȘ --- */
+
+/* Forțăm textul negru/navy în interiorul popup-ului de coș */
+.cos-popup-produse .search-item, 
+.cos-popup-produse .search-item h4, 
+.cos-popup-produse .search-item small,
+.cos-popup-produse p {
+    color: #1e293b !important; /* Navy închis pentru lizibilitate pe alb */
+    text-align: left;
+}
+
+/* Fundalul itemelor din coș să fie alb curat */
+.cos-popup-produse .search-item {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    display: flex !important;
+    align-items: center;
+    padding: 10px !important;
+}
+
+/* STILIZARE SCROLLBAR COȘ (Albastru) */
+.cos-popup-produse::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cos-popup-produse::-webkit-scrollbar-track {
+    background: #f8fafc;
+    border-radius: 10px;
+}
+
+.cos-popup-produse::-webkit-scrollbar-thumb {
+    background: var(--main-blue);
+    border-radius: 10px;
+}
+
+.cos-popup-produse::-webkit-scrollbar-thumb:hover {
+    background: #0084cc;
+}
+
+/* REGLAJ MOBIL STRICT PENTRU POPUP COȘ */
+@media (max-width: 768px) {
+    .cos-popup {
+        width: 92vw !important; /* Aproape toată lățimea ecranului */
+        right: 4vw !important;
+        left: 4vw !important;
+        bottom: 85px !important; /* Să nu acopere widget-ul de jos */
+        max-height: 70vh !important; /* Să nu iasă din ecran pe înălțime */
+        position: fixed !important;
+    }
+}
