@@ -576,6 +576,23 @@ async function loadRecommendations(currentId, pathPrefix) {
     }
 }
 
+// Exemplu de funcție pentru a încărca ofertele
+async function loadSpecialOffers() {
+    const { data, error } = await supabase
+        .from('produse')
+        .select('*')
+        .eq('este_reducere', true) // Luăm doar produsele marcate cu reducere
+        .limit(4); // Afișăm doar primele 4 în pagina principală
+
+    if (error) {
+        console.error('Eroare oferte:', error);
+        return;
+    }
+
+    // Aici rulezi logica de populare a HTML-ului creat anterior
+    renderOffers(data);
+}
+
 async function setupReviewSubmission(productId) {
     const form = document.getElementById('review-form');
     const nameInput = document.getElementById('rev-nume');
