@@ -95,26 +95,27 @@ function renderOffers(produse) {
         // Gestionăm calea imaginii (dacă e din folderul pictures sau path complet)
         const imgSrc = p.imagine.includes('/') ? p.imagine : `pictures/${p.imagine}`;
 
-        return `
-            <div class="product-card sale" id="produs-${p.id}">
-                ${discount > 0 ? `<div class="sale-badge">-${discount}%</div>` : ''}
-                <div class="product-image">
-                    <a href="produs.html?id=${p.id}">
-                        <img src="${imgSrc}" alt="${p.nume}">
-                    </a>
-                </div>
-                <div class="product-info">
-                    <span class="brand-tag">${p.subcategorie || 'Top Product'}</span>
-                    <a href="produs.html?id=${p.id}" style="text-decoration:none; color:inherit;">
-                        <h3>${p.nume}</h3>
-                    </a>
-                    <div class="price-wrapper">
-                        ${p.pret_vechi ? `<span class="old-price">${parseFloat(p.pret_vechi).toFixed(2)} lei</span>` : ''}
-                        <span class="new-price">${parseFloat(p.pret).toFixed(2)} lei</span>
-                    </div>
-                    <button class="add-btn">Adaugă în Coș</button>
-                </div>
+// În home.js, în interiorul map-ului din renderOffers:
+return `
+    <div class="product-card sale" id="produs-${p.id}">
+        ${discount > 0 ? `<div class="sale-badge">-${discount}%</div>` : ''}
+        <div class="product-image">
+            <a href="produs.html?id=${p.id}">
+                <img src="${imgSrc}" alt="${p.nume}">
+            </a>
+        </div>
+        <div class="product-info">
+            <span class="brand-tag">${p.subcategorie || 'Ofertă'}</span>
+            <a href="produs.html?id=${p.id}" style="text-decoration:none; color:inherit;">
+                <h3>${p.nume}</h3>
+            </a>
+            <div class="price-wrapper">
+                ${p.pret_vechi ? `<span class="old-price">${parseFloat(p.pret_vechi).toFixed(2)} lei</span>` : ''}
+                <span class="new-price price">${parseFloat(p.pret).toFixed(2)} RON</span>
             </div>
-        `;
+            <button class="add-btn">Adaugă în Coș</button>
+        </div>
+    </div>
+`;
     }).join('');
 }
