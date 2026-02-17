@@ -186,7 +186,59 @@ const widgetsHTML = `
     </button>
 </div>
 `;
+// --- FOOTER DINAMIC ---
+const footerHTML = `
+<footer class="main-footer">
+    <div class="wrapper">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">
+                    <a href="${pathPrefix}index.html">CLEAN<span>SHOP</span></a>
+                </div>
+                <p class="footer-desc">Soluții profesionale de curățenie pentru casa ta. Calitate garantată și livrare rapidă.</p>
+            </div>
 
+            <div class="footer-col">
+                <h4>Link-uri Utile</h4>
+                <ul>
+                    <li><a href="${pathPrefix}contact/contact.html">Contact</a></li>
+                    <li><a href="#">Termeni și Condiții</a></li>
+                    <li><a href="#">Politica de Confidențialitate</a></li>
+                    <li><a href="#">Politica Cookies</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Suport Clienți</h4>
+                <p>Luni - Vineri: 09:00 - 18:00</p>
+                <p>Email: contact@cleanshop.ro</p>
+                <p>Tel: 07xx xxx xxx</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Siguranță & Plăți</h4>
+                <div class="payment-icons">
+                    <img src="${pathPrefix}pictures/visa.png" alt="Visa">
+                    <img src="${pathPrefix}pictures/mastercard.png" alt="Mastercard">
+                </div>
+                <div class="anpc-links">
+
+                    <a href="https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home2.show&lng=RO" target="_blank">
+                        <img src="${pathPrefix}pictures/anpc.png" alt="ANPC SOL">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cleaning Shop. Toate drepturile rezervate.</p>
+        </div>
+    </div>
+</footer>
+`;
+
+// Inserăm footer-ul la finalul body-ului
+document.body.insertAdjacentHTML("beforeend", footerHTML);
     // Inserăm Navbar/Topbar
     document.body.insertAdjacentHTML("afterbegin", headerHTML);
     

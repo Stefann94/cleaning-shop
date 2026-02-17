@@ -371,3 +371,105 @@ body {
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
+
+
+/* --- FOOTER STYLING --- */
+.main-footer {
+    background: #1e293b; /* Culoare închisă asortată cu butoanele */
+    color: #f1f5f9;
+    padding: 4rem 0 2rem;
+    margin-top: 5rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 3rem;
+}
+
+.footer-col h4 {
+    color: #fff;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-col ul li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-col ul li a:hover {
+    color: var(--main-blue);
+}
+
+.footer-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+    margin-top: 1rem;
+}
+
+/* Plăți și ANPC */
+.payment-icons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.payment-icons img {
+    height: 30px;
+    filter: grayscale(100%) brightness(150%); /* Arată mai elegant în footer */
+    transition: 0.3s;
+}
+
+.payment-icons img:hover {
+    filter: grayscale(0%);
+}
+
+.anpc-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.anpc-links img {
+    width: 180px; /* Dimensiune standard pentru siglele ANPC */
+    border-radius: 4px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+/* --- RESPONSIVE FOOTER --- */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr; /* Pe mobil le punem una sub alta */
+        text-align: center;
+        gap: 2.5rem;
+    }
+
+    .payment-icons {
+        justify-content: center;
+    }
+
+    .anpc-links {
+        align-items: center;
+    }
+}
