@@ -246,6 +246,193 @@
     text-shadow: none !important;
 }
 
+/* --- HERO SLIDER CORE --- */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    min-height: 550px;
+    max-height: 850px;
+    overflow: hidden;
+    margin-bottom: 5vh;
+    border-radius: 0;
+    /* Un albastru foarte discret, lite, cu un usor gradient spre alb in centru */
+    background: radial-gradient(circle at center, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+.slider-container {
+    display: flex;
+    width: 400%;
+    height: 100%;
+    transition: transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.slide {
+    position: relative;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+    box-sizing: border-box;
+    /* Scoatem culorile de pe nth-child ca să rămână fundalul sliderului vizibil peste tot */
+    background: transparent !important; 
+}
+
+/* --- TEXTUL (LITE THEME) --- */
+.slide-content {
+    flex: 0 0 35%;
+    z-index: 5;
+    text-align: left;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide.active .slide-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Culori Text optimizate pentru fundal LITE */
+.slide-content h1 {
+    color: #0f172a; /* Navy închis pentru contrast maxim pe titlu */
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.slide-content p {
+    color: #475569; /* Gri albăstrui pentru textul secundar */
+    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    margin-bottom: 2rem;
+    max-width: 420px;
+}
+
+.highlight {
+    color: #00a8ff; /* Albastrul tău principal pentru evidențiere */
+}
+
+/* --- IMAGINEA --- */
+.slide-image {
+    flex: 0 0 45%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.slide-image img {
+    max-height: 75%;
+    width: auto;
+    object-fit: contain;
+    /* Umbră mai discretă pentru fundal deschis */
+    filter: drop-shadow(0 20px 30px rgba(0, 168, 255, 0.15));
+    animation: float 6s ease-in-out infinite;
+}
+
+/* --- BUTONUL --- */
+.btn-hero-centered {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00a8ff;
+    color: white;
+    padding: 1.1rem 3.5rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    box-shadow: 0 10px 30px rgba(0, 168, 255, 0.3);
+    transition: all 0.4s ease;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.btn-hero-centered:hover {
+    transform: translateX(-50%) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 168, 255, 0.5);
+    background: #0097e6;
+}
+
+/* --- INDICATORI (DOTS) --- */
+.slider-dots {
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 15;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px 20px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 168, 255, 0.1);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 168, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #00a8ff;
+    width: 35px;
+    border-radius: 20px;
+}
+
+/* --- ANIMAȚII --- */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(1deg); }
+}
+
+/* --- RESPONSIVE TOTAL --- */
+@media (max-width: 768px) {
+    .hero-slider { 
+        height: 85vh; 
+        border-radius: 0 0 2rem 2rem;
+    }
+    .slide {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+    }
+    .slide-content {
+        flex: 0 0 auto;
+        margin-right: 0;
+        margin-bottom: 2vh;
+        text-align: center;
+        width: 100%;
+        transform: translateY(10px);
+    }
+    .slide-image {
+        flex: 0 0 40%;
+        width: 100%;
+        justify-content: center;
+        margin-left: 0;
+    }
+    .btn-hero-centered { 
+        bottom: 16%; 
+        width: 80%;
+        padding: 1rem;
+    }
+}
+
+
+
 /* Media Query - Mobile */
 @media (max-width: 768px) {
     .nav-container {

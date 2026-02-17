@@ -101,6 +101,241 @@
     letter-spacing: -0.5px; /* Îi dă un aspect mai elegant, "tight" */
 }
 
+
+/* --- HERO SLIDER CORE --- */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    min-height: 500px;
+    max-height: 850px;
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    overflow: hidden;
+    margin-bottom: 5vh;
+}
+
+.slider-container {
+    display: flex;
+    width: 400%; /* Pentru 4 slide-uri */
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.slide {
+    position: relative;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* Eliminăm justify-content: space-between și folosim margini auto pentru precizie */
+    padding: 0 5%; 
+    box-sizing: border-box;
+}
+
+/* --- TEXTUL (ANCORAT EXTREMA STÂNGĂ) --- */
+.slide-content {
+    flex: 0 0 35%; /* Ocupă fix 35% din lățime */
+    z-index: 5;
+    text-align: left;
+    margin-right: auto; /* Împinge tot restul conținutului spre dreapta */
+    opacity: 0;
+    transform: translateX(-3rem);
+    transition: all 0.8s ease;
+}
+
+.slide-content h1 {
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    font-weight: 800;
+    color: #102a43;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.slide-content p {
+    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    color: #486581;
+    margin-bottom: 2rem;
+    max-width: 400px;
+}
+
+/* --- IMAGINEA (ANCORATĂ EXTREMA DREAPTĂ) --- */
+.slide-image {
+    flex: 0 0 40%; /* Ocupă fix 40% din lățime */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aliniază imaginea la marginea din dreapta a containerului său */
+    margin-left: auto; /* Împinge imaginea cât mai în dreapta posibil */
+}
+
+.slide-image img {
+    max-height: 70%;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
+    animation: float 5s ease-in-out infinite;
+}
+
+/* --- ACTIVARE ANIMAȚII (PRIN CLASA ACTIVE) --- */
+.slide.active .slide-content {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.highlight {
+    color: #007ace;
+    display: inline-block;
+}
+
+/* --- BUTONUL CENTRAT (INDEPENDENT) --- */
+.btn-hero-centered {
+    position: absolute;
+    bottom: 18%; /* Mai sus de puncte */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #007ace;
+    color: #fff;
+    padding: clamp(0.8rem, 1.2vw, 1.1rem) clamp(1.5rem, 3vw, 3rem);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: clamp(0.75rem, 1vw, 0.9rem);
+    box-shadow: 0 10px 25px rgba(0, 122, 206, 0.3);
+    transition: all 0.3s ease;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.btn-hero-centered:hover {
+    transform: translateX(-50%) translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 122, 206, 0.4);
+    background: #006bbd;
+}
+
+/* --- INDICATORI (DOTS) --- */
+.slider-dots {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 15;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(16, 42, 67, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #007ace;
+    width: 30px;
+    border-radius: 10px;
+}
+
+/* --- ANIMAȚII --- */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* --- OPTIMIZARE MOBILE HERO (REPARAT) --- */
+@media (max-width: 768px) {
+    .hero-slider { 
+        height: 40vh; /* Mai mic pentru a vedea titlul secțiunii următoare */
+        min-height: 320px;
+        margin-bottom: 20px;
+        /* Fundal mai subtil pentru a scoate textul în evidență */
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+
+    .slide {
+        flex-direction: row; 
+        align-items: center;
+        justify-content: center; /* Centrare grupată */
+        padding: 0 20px;
+        gap: 15px; /* SPAȚIU între text și imagine */
+    }
+
+    /* Textul în stânga */
+    .slide-content {
+        flex: 0 1 50%; /* Ocupă jumătate, dar poate scădea */
+        text-align: left;
+        margin-right: 0;
+        transform: translateX(-20px); /* Animație mai fină */
+    }
+
+    .slide.active .slide-content {
+        transform: translateX(0);
+    }
+
+    .slide-content h1 {
+        font-size: 1.2rem;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+
+    .slide-content p {
+        font-size: 0.75rem;
+        line-height: 1.3;
+        max-width: 100%;
+        margin-bottom: 0; /* Butonul e poziționat absolut, deci nu avem nevoie de spațiu aici */
+    }
+
+    /* Imaginea în dreapta */
+    .slide-image {
+        flex: 0 1 40%;
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    .slide-image img {
+        max-height: 120px; /* Imagine mai finuță */
+        width: auto;
+        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.08));
+    }
+
+    /* Butonul Cumpără Acum */
+    .btn-hero-centered {
+        bottom: 55px;
+        padding: 10px 20px;
+        font-size: 0.75rem;
+        min-width: 140px;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0, 122, 206, 0.25);
+    }
+
+    /* Repoziționare Puncte (Dots) */
+    .slider-dots {
+        bottom: 15px;
+        gap: 8px;
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .dot.active {
+        width: 20px;
+    }
+}
+
+/* Fix pentru telefoane foarte mici (iPhone SE, etc) */
+@media (max-width: 380px) {
+    .slide-content h1 { font-size: 1.1rem; }
+    .slide-image img { max-height: 100px; }
+    .slide { gap: 10px; }
+    .hero-slider { height: 38vh; }
+}
+
 /* Ajustare Mobile */
 @media (max-width: 768px) {
     .subtitle-blue {
